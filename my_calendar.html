@@ -194,6 +194,131 @@
   }
   .more-chip:hover { color: var(--text2); }
 
+  /* ── DAY VIEW ── */
+  .day-view-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 200;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+  }
+  .day-view-overlay.open { display: flex; }
+  .day-view {
+    background: var(--surface);
+    border-radius: var(--radius) var(--radius) 0 0;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    width: 100%;
+    max-width: 680px;
+    height: 88vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .day-view-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .day-view-title { font-size: 16px; font-weight: 500; color: var(--text); }
+  .day-view-nav { display: flex; gap: 6px; align-items: center; }
+  .day-view-body {
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+  }
+  .timeline-labels {
+    width: 48px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .timeline-label {
+    position: absolute;
+    right: 8px;
+    font-size: 10px;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+    transform: translateY(-50%);
+    white-space: nowrap;
+  }
+  .timeline-grid {
+    flex: 1;
+    position: relative;
+    border-left: 1px solid var(--border);
+  }
+  .timeline-line {
+    position: absolute;
+    left: 0; right: 0;
+    border-top: 1px solid var(--border);
+    opacity: 0.5;
+  }
+  .timeline-line.hour { opacity: 1; }
+  .timeline-now {
+    position: absolute;
+    left: 0; right: 0;
+    border-top: 2px solid #d95fa0;
+    z-index: 5;
+  }
+  .timeline-now::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: -4px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #d95fa0;
+  }
+  .timeline-event {
+    position: absolute;
+    left: 4px; right: 4px;
+    border-radius: 5px;
+    padding: 3px 7px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: hidden;
+    transition: filter 0.1s;
+    z-index: 3;
+    line-height: 1.4;
+  }
+  .timeline-event:hover { filter: brightness(0.93); }
+  .timeline-event .ev-time { font-size: 10px; opacity: 0.75; font-family: 'DM Mono', monospace; }
+  .allday-strip {
+    padding: 8px 20px 8px 68px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    min-height: 36px;
+    align-items: center;
+  }
+  .allday-pill {
+    font-size: 11px; font-weight: 500;
+    padding: 3px 9px; border-radius: 99px;
+    cursor: pointer;
+    transition: filter 0.1s;
+  }
+  .allday-pill:hover { filter: brightness(0.93); }
+  .free-label {
+    position: absolute;
+    right: 6px;
+    font-size: 9px;
+    color: var(--text3);
+    font-style: italic;
+    z-index: 1;
+  }
+
+  /* ── DAY CELL clickable ── */
+  .day-cell { cursor: pointer; }
+  .day-cell:hover { background: var(--surface2); }
+  .day-cell.other:hover { background: var(--surface2); }
+
   /* ── MODAL ── */
   .overlay {
     display: none;
@@ -293,6 +418,129 @@
     transition: background 0.15s;
   }
   .import-btn:hover { background: var(--surface2); }
+
+  /* ── DAY VIEW ── */
+  .day-view-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 200;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  @media (min-width: 600px) {
+    .day-view-overlay { align-items: center; }
+  }
+  .day-view-overlay.open { display: flex; }
+  .day-view {
+    background: var(--surface);
+    border-radius: var(--radius) var(--radius) 0 0;
+    width: 100%;
+    max-width: 540px;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  @media (min-width: 600px) {
+    .day-view { border-radius: var(--radius); max-height: 82vh; }
+  }
+  .day-view-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .day-view-title { font-size: 16px; font-weight: 500; color: var(--text); }
+  .day-view-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .day-view-nav { display: flex; gap: 6px; align-items: center; }
+  .day-view-body { overflow-y: auto; flex: 1; position: relative; }
+  .timeline {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    position: relative;
+    padding-bottom: 16px;
+  }
+  .hour-label {
+    font-size: 10px;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+    text-align: right;
+    padding-right: 8px;
+    padding-top: 0;
+    height: 48px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-top: 0px;
+    position: relative;
+    top: -6px;
+  }
+  .hour-row {
+    height: 48px;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+  .hour-row.half { border-top: 1px dashed var(--border); opacity: 0.5; }
+  .timeline-events {
+    position: absolute;
+    top: 0; left: 44px; right: 0;
+    pointer-events: none;
+  }
+  .tl-event {
+    position: absolute;
+    left: 4px; right: 4px;
+    border-radius: 5px;
+    padding: 3px 7px;
+    font-size: 11px;
+    font-weight: 500;
+    overflow: hidden;
+    cursor: pointer;
+    pointer-events: all;
+    line-height: 1.4;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .tl-event:hover { filter: brightness(0.93); }
+  .tl-event .tl-time { font-size: 10px; opacity: 0.75; font-family: 'DM Mono', monospace; }
+  .allday-strip {
+    padding: 8px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .allday-strip-label { font-size: 10px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; margin-right: 4px; display: flex; align-items: center; }
+  .allday-chip {
+    font-size: 11px; font-weight: 500;
+    padding: 3px 9px; border-radius: 99px;
+    cursor: pointer;
+  }
+  .free-time-bar {
+    position: absolute;
+    left: 0; right: 0;
+    background: #e6f5d0;
+    opacity: 0.45;
+    pointer-events: none;
+    border-left: 2px solid #6ab52a;
+  }
+  .now-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: #d95fa0;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .now-dot {
+    position: absolute;
+    left: -4px; top: -4px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #d95fa0;
+  }
 
   /* ── TOAST ── */
   .toast {
@@ -446,6 +694,25 @@
       <button class="btn-cancel" onclick="closeOverlay('import-overlay')">Cancel</button>
       <button class="btn-save" onclick="doImport()">Import</button>
     </div>
+  </div>
+</div>
+
+<!-- DAY VIEW -->
+<div class="day-view-overlay" id="dayview-overlay" onclick="dayviewOverlayClick(event)">
+  <div class="day-view">
+    <div class="day-view-header">
+      <div class="day-view-nav">
+        <button class="nav-btn" onclick="shiftDay(-1)">&#8592;</button>
+        <div class="day-view-title" id="dayview-title"></div>
+        <button class="nav-btn" onclick="shiftDay(1)">&#8594;</button>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="today-btn" onclick="openDayView(today())">Today</button>
+        <button class="modal-close" style="position:static;" onclick="closeOverlay('dayview-overlay')">✕</button>
+      </div>
+    </div>
+    <div class="allday-strip" id="dayview-allday"></div>
+    <div class="day-view-body" id="dayview-body"></div>
   </div>
 </div>
 
@@ -724,19 +991,17 @@ function renderCal() {
       chip.style.background = c.bg;
       chip.style.color = c.text;
       chip.textContent = ev.title;
-      chip.onclick = () => openDetail(ev.id);
+      chip.onclick = (e) => { e.stopPropagation(); openDetail(ev.id); };
       cell.appendChild(chip);
     });
     if (dayEvs.length > max) {
       const more = document.createElement('div');
       more.className = 'more-chip';
       more.textContent = `+${dayEvs.length - max} more`;
-      more.onclick = () => {
-        const rest = dayEvs.slice(max).map(e => e.title).join('\n');
-        alert(`More events on ${fmt(ds)}:\n\n${rest}`);
-      };
+      more.onclick = (e) => { e.stopPropagation(); openDayView(ds); };
       cell.appendChild(more);
     }
+    cell.onclick = () => openDayView(ds);
 
     grid.appendChild(cell);
   }
@@ -909,6 +1174,163 @@ function doImport() {
   save(); renderCal();
   closeOverlay('import-overlay');
   showToast(`Imported: ${added} added, ${updated} updated`);
+}
+
+// ── Day View ──
+let dayViewDate = null;
+const DAY_START = 7;  // 7am
+const DAY_END = 23;   // 11pm
+const HOUR_PX = 64;
+const TOTAL_PX = (DAY_END - DAY_START) * HOUR_PX;
+const DAYS_LONG = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+function openDayView(ds) {
+  dayViewDate = ds;
+  renderDayView();
+  document.getElementById('dayview-overlay').classList.add('open');
+}
+
+function shiftDay(dir) {
+  const [y,m,d] = dayViewDate.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  dt.setDate(dt.getDate() + dir);
+  dayViewDate = dateStr(dt.getFullYear(), dt.getMonth(), dt.getDate());
+  renderDayView();
+}
+
+function dayviewOverlayClick(e) {
+  if (e.target === document.getElementById('dayview-overlay')) closeOverlay('dayview-overlay');
+}
+
+function toMinutes(timeStr) {
+  const [h, m] = timeStr.split(':').map(Number);
+  return h * 60 + m;
+}
+
+function renderDayView() {
+  const ds = dayViewDate;
+  const [y,m,d] = ds.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  document.getElementById('dayview-title').textContent =
+    `${DAYS_LONG[dt.getDay()]}, ${MONTHS[m-1]} ${d}`;
+
+  const allEvs = events.filter(e => {
+    if (!activeFilters.has(e.cat)) return false;
+    return ds >= e.date && ds <= (e.end_date || e.date);
+  });
+
+  const allDayEvs = allEvs.filter(e => e.allDay || (!e.start));
+  const timedEvs  = allEvs.filter(e => !e.allDay && e.start);
+
+  // All-day strip
+  const strip = document.getElementById('dayview-allday');
+  strip.innerHTML = '';
+  if (allDayEvs.length === 0) {
+    strip.innerHTML = '<span style="font-size:11px;color:var(--text3);">No all-day events</span>';
+  }
+  allDayEvs.forEach(ev => {
+    const c = CATS[ev.cat];
+    const pill = document.createElement('div');
+    pill.className = 'allday-pill';
+    pill.style.background = c.bg;
+    pill.style.color = c.text;
+    pill.textContent = ev.title;
+    pill.onclick = () => openDetail(ev.id);
+    strip.appendChild(pill);
+  });
+
+  // Timeline
+  const body = document.getElementById('dayview-body');
+  body.innerHTML = '';
+
+  const labels = document.createElement('div');
+  labels.className = 'timeline-labels';
+  labels.style.height = TOTAL_PX + 'px';
+  labels.style.position = 'relative';
+
+  const grid = document.createElement('div');
+  grid.className = 'timeline-grid';
+  grid.style.height = TOTAL_PX + 'px';
+  grid.style.position = 'relative';
+
+  // Hour lines + labels
+  for (let h = DAY_START; h <= DAY_END; h++) {
+    const top = (h - DAY_START) * HOUR_PX;
+    const line = document.createElement('div');
+    line.className = 'timeline-line hour';
+    line.style.top = top + 'px';
+    grid.appendChild(line);
+
+    // Half hour line
+    if (h < DAY_END) {
+      const half = document.createElement('div');
+      half.className = 'timeline-line';
+      half.style.top = (top + HOUR_PX/2) + 'px';
+      grid.appendChild(half);
+    }
+
+    const lbl = document.createElement('div');
+    lbl.className = 'timeline-label';
+    lbl.style.top = top + 'px';
+    const hh = h % 12 || 12;
+    const ampm = h < 12 ? 'a' : 'p';
+    lbl.textContent = `${hh}${ampm}`;
+    labels.appendChild(lbl);
+  }
+
+  // Current time indicator
+  const now = new Date();
+  const nowDs = dateStr(now.getFullYear(), now.getMonth(), now.getDate());
+  if (ds === nowDs) {
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+    const startMin = DAY_START * 60;
+    const endMin = DAY_END * 60;
+    if (nowMin >= startMin && nowMin <= endMin) {
+      const nowLine = document.createElement('div');
+      nowLine.className = 'timeline-now';
+      nowLine.style.top = ((nowMin - startMin) / 60 * HOUR_PX) + 'px';
+      grid.appendChild(nowLine);
+    }
+  }
+
+  // Timed events — handle overlaps
+  const sorted = [...timedEvs].sort((a,b) => toMinutes(a.start) - toMinutes(b.start));
+  const columns = [];
+  sorted.forEach(ev => {
+    const startMin = toMinutes(ev.start);
+    const endMin = ev.end ? toMinutes(ev.end) : startMin + 60;
+    let col = 0;
+    while (columns[col] && columns[col] > startMin) col++;
+    columns[col] = endMin;
+    const totalCols = Math.max(...columns.map((_,i) => i)) + 1;
+
+    const top = Math.max(0, (startMin - DAY_START * 60) / 60 * HOUR_PX);
+    const height = Math.max(22, (endMin - startMin) / 60 * HOUR_PX - 3);
+    const c = CATS[ev.cat];
+
+    const el = document.createElement('div');
+    el.className = 'timeline-event';
+    el.style.background = c.bg;
+    el.style.color = c.text;
+    el.style.top = top + 'px';
+    el.style.height = height + 'px';
+    el.style.left = (4 + col * (96 / totalCols)) + '%';
+    el.style.right = ((totalCols - col - 1) * (96 / totalCols)) + '%';
+    el.innerHTML = `<div style="font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${ev.title}</div>
+      <div class="ev-time">${fmtTime(ev.start)}${ev.end ? ' – '+fmtTime(ev.end):''}</div>`;
+    el.onclick = () => openDetail(ev.id);
+    grid.appendChild(el);
+  });
+
+  body.appendChild(labels);
+  body.appendChild(grid);
+
+  // Scroll to first event or 8am
+  const firstMin = timedEvs.length
+    ? Math.min(...timedEvs.map(e => toMinutes(e.start)))
+    : 8 * 60;
+  const scrollTo = Math.max(0, (firstMin - DAY_START * 60 - 30) / 60 * HOUR_PX);
+  setTimeout(() => body.scrollTop = scrollTo, 50);
 }
 
 // ── Utils ──
