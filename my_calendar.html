@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>iz!</title>
+<title>My Calendar</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -315,21 +315,6 @@
 </head>
 <body>
 
-<div class="overlay open" id="setup-overlay">
-  <div class="modal" style="max-width:400px;">
-    <h2 style="margin-bottom:8px;">Welcome to My Calendar</h2>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:18px;">To enable cloud sync across your devices, paste your JSONBin Master Key below. You only need to do this once per device — it's saved securely in your browser.</p>
-    <div class="field">
-      <label>JSONBin Master Key</label>
-      <input type="password" id="setup-key" placeholder="$2a$10$..." style="font-family:'DM Mono',monospace;font-size:13px;">
-    </div>
-    <p id="setup-error" style="font-size:12px;color:#b91c1c;margin-bottom:8px;display:none;">Couldn't connect — double-check your key and try again.</p>
-    <div class="modal-actions">
-      <button class="btn-save" onclick="submitSetup()">Connect & Load Calendar</button>
-    </div>
-  </div>
-</div>
-
 <!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-left">
@@ -609,7 +594,6 @@ function showStatus(msg, color) {
 
 async function loadEvents() {
   const key = getKey();
-  if (!key) { showSetup(); return; }
   showStatus('Loading…');
   try {
     const res = await fetch(JSONBIN_URL + '/latest', {
