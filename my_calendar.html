@@ -333,17 +333,6 @@
   .day-cell:hover { background: var(--surface2); }
   .day-cell.other:hover { background: var(--surface2); }
 
-  /* ── double-click hint ── */
-  .dblclick-hint {
-    font-size: 10px;
-    color: var(--text3);
-    text-align: center;
-    padding: 6px 0 2px;
-    font-style: italic;
-    pointer-events: none;
-    user-select: none;
-  }
-
   /* timeline grid cursor */
   .timeline-grid { cursor: crosshair; }
 
@@ -809,7 +798,6 @@
       </div>
     </div>
     <div class="allday-strip" id="dayview-allday"></div>
-    <div class="dblclick-hint">Double-click anywhere on the timeline to add an event</div>
     <div class="day-view-body" id="dayview-body"></div>
   </div>
 </div>
@@ -1471,8 +1459,8 @@ function renderDayView() {
   });
 
   // Timeline
-  const body = document.getElementById('dayview-body');
-  body.innerHTML = '';
+  const dayBody = document.getElementById('dayview-body');
+  dayBody.innerHTML = '';
 
   const wrap = document.createElement('div');
   wrap.style.cssText = 'display:flex;position:relative;min-height:' + TOTAL_PX + 'px;';
@@ -1481,7 +1469,7 @@ function renderDayView() {
   labels.style.cssText = 'width:48px;flex-shrink:0;position:relative;height:' + TOTAL_PX + 'px;';
 
   const grid = document.createElement('div');
-  grid.style.cssText = 'flex:1;position:relative;border-left:1px solid var(--border);height:' + TOTAL_PX + 'px;cursor:crosshair;';
+  grid.style.cssText = 'flex:1;position:relative;border-left:1px solid var(--border);height:' + TOTAL_PX + 'px;user-select:none;';
 
   // Hour lines + labels
   for (let h = DAY_START; h <= DAY_END; h++) {
@@ -1551,30 +1539,29 @@ function renderDayView() {
     grid.appendChild(el);
   });
 
-  // ── Double-click on grid to add event ──
+  // ── Double-click on empty grid space to add event at that time ──
   grid.addEventListener('dblclick', (e) => {
-    // Don't trigger if clicking on an existing event chip
     if (e.target.closest('.timeline-event')) return;
-    const rect = grid.getBoundingClientRect();
-    const scrollTop = body.scrollTop;
-    const relY = e.clientY - rect.top + scrollTop;
+    // relY must account for how far dayBody has scrolled, not e.clientY alone
+    const gridTop = grid.getBoundingClientRect().top;
+    const relY = e.clientY - gridTop + dayBody.scrollTop;
     const clickedMin = (relY / HOUR_PX) * 60 + DAY_START * 60;
     const snapped = snapToQuarter(Math.round(clickedMin));
     const startMin = Math.max(DAY_START * 60, Math.min(snapped, DAY_END * 60 - 30));
-    const endMin = startMin + 60;
-    openAdd(ds, minToTimeStr(startMin), minToTimeStr(Math.min(endMin, DAY_END * 60)));
+    const endMin = Math.min(startMin + 60, DAY_END * 60);
+    openAdd(ds, minToTimeStr(startMin), minToTimeStr(endMin));
   });
 
   wrap.appendChild(labels);
   wrap.appendChild(grid);
-  body.appendChild(wrap);
+  dayBody.appendChild(wrap);
 
   // Scroll to first event or 8am
   const firstMin = timedEvs.length
     ? Math.min(...timedEvs.map(e => toMinutes(e.start)))
     : 8 * 60;
   const scrollTo = Math.max(0, (firstMin - DAY_START * 60 - 30) / 60 * HOUR_PX);
-  setTimeout(() => body.scrollTop = scrollTo, 50);
+  setTimeout(() => dayBody.scrollTop = scrollTo, 50);
 }
 
 // ── Utils ──
