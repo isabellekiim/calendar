@@ -333,8 +333,7 @@
   .day-cell:hover { background: var(--surface2); }
   .day-cell.other:hover { background: var(--surface2); }
 
-  /* timeline grid cursor */
-  .timeline-grid { cursor: crosshair; }
+
 
   /* ── MODAL ── */
   .overlay {
@@ -1416,16 +1415,6 @@ function toMinutes(timeStr) {
   return h * 60 + m;
 }
 
-// ── Snap minutes to nearest 15 ──
-function snapToQuarter(min) {
-  return Math.round(min / 15) * 15;
-}
-function minToTimeStr(totalMin) {
-  const h = Math.floor(totalMin / 60);
-  const m = totalMin % 60;
-  return `${pad(h)}:${pad(m)}`;
-}
-
 function renderDayView() {
   const ds = dayViewDate;
   const [y,m,d] = ds.split('-').map(Number);
@@ -1458,97 +1447,63 @@ function renderDayView() {
     strip.appendChild(pill);
   });
 
-  // ── Build the original grid-based timeline ──
-  const dayBody = document.getElementById('dayview-body');
-  dayBody.innerHTML = '';
+  const body = document.getElementById('dayview-body');
+  body.innerHTML = '';
 
-  // Outer grid: 44px label col | 1fr event col
+  // Wrapper holds the CSS grid timeline + absolutely-positioned events layer
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = 'position:relative;';
+
+  // The CSS grid: label col + hour-row col, interleaved per row
   const timeline = document.createElement('div');
   timeline.className = 'timeline';
 
-  // We need a single container for the right column so events can overlay it
-  // Build label + hour-row pairs, then overlay events
-  const hours = [];
   for (let h = DAY_START; h <= DAY_END; h++) {
-    hours.push(h);
-  }
-
-  // Left labels column (all hour labels stacked)
-  const labelCol = document.createElement('div');
-  labelCol.style.cssText = 'position:relative;';
-  // Right rows column (all hour rows stacked, events overlaid)
-  const rowsCol = document.createElement('div');
-  rowsCol.style.cssText = 'position:relative;';
-
-  hours.forEach((h, i) => {
-    // label
+    // Label
     const lbl = document.createElement('div');
     lbl.className = 'hour-label';
     const hh = h % 12 || 12;
     const ampm = h < 12 ? 'am' : 'pm';
-    lbl.textContent = i === 0 ? '' : `${hh}${ampm}`;
-    labelCol.appendChild(lbl);
+    lbl.textContent = h === DAY_START ? '' : `${hh}${ampm}`;
+    timeline.appendChild(lbl);
 
-    // row
+    // Hour row
     const row = document.createElement('div');
     row.className = 'hour-row';
-    rowsCol.appendChild(row);
+    timeline.appendChild(row);
+  }
 
-    // half-hour dashed row (except after last hour)
-    if (i < hours.length - 1) {
-      const halfLbl = document.createElement('div');
-      halfLbl.className = 'hour-label';
-      halfLbl.textContent = '';
-      labelCol.appendChild(halfLbl);
-
-      const halfRow = document.createElement('div');
-      halfRow.className = 'hour-row half';
-      rowsCol.appendChild(halfRow);
-    }
-  });
-
-  // Current time indicator
+  // Now-line (today only)
   const now = new Date();
   const nowDs = dateStr(now.getFullYear(), now.getMonth(), now.getDate());
   if (ds === nowDs) {
     const nowMin = now.getHours() * 60 + now.getMinutes();
     const startMin = DAY_START * 60;
-    const endMin = DAY_END * 60;
-    if (nowMin >= startMin && nowMin <= endMin) {
+    if (nowMin >= startMin && nowMin <= DAY_END * 60) {
+      const pct = (nowMin - startMin) / ((DAY_END - DAY_START) * 60) * 100;
       const nowLine = document.createElement('div');
       nowLine.className = 'now-line';
-      nowLine.style.top = ((nowMin - startMin) / 60 * HOUR_PX) + 'px';
+      // position relative to the events layer (left col = 44px)
+      nowLine.style.cssText = `position:absolute;left:44px;right:0;top:calc(${pct}% * ${(DAY_END - DAY_START)});z-index:10;`;
+      // Use pixel offset instead
+      const topPx = (nowMin - startMin) / 60 * HOUR_PX;
+      nowLine.style.cssText = `position:absolute;left:44px;right:0;top:${topPx}px;height:2px;background:#d95fa0;z-index:10;pointer-events:none;`;
       const dot = document.createElement('div');
       dot.className = 'now-dot';
       nowLine.appendChild(dot);
-      rowsCol.appendChild(nowLine);
+      wrapper.appendChild(nowLine);
     }
   }
 
-  // ── Overlay timed events ──
-  // Each hour-row is HOUR_PX tall; half-rows also HOUR_PX tall (they use same class height)
-  // So actual px per minute = HOUR_PX / 60
+  // Events layer — absolutely positioned over the right column
+  const evLayer = document.createElement('div');
+  evLayer.style.cssText = `position:absolute;top:0;left:44px;right:0;bottom:0;pointer-events:none;`;
+
   const sorted = [...timedEvs].sort((a,b) => toMinutes(a.start) - toMinutes(b.start));
-
-  // Overlap detection: assign columns
-  const colEnds = []; // colEnds[i] = end minute of last event in column i
-  const evCols = [];
-  sorted.forEach((ev, idx) => {
+  sorted.forEach(ev => {
     const startMin = toMinutes(ev.start);
-    const endMin = ev.end ? toMinutes(ev.end) : startMin + 60;
-    let col = 0;
-    while (colEnds[col] !== undefined && colEnds[col] > startMin) col++;
-    colEnds[col] = endMin;
-    evCols[idx] = col;
-  });
-  const totalCols = colEnds.length || 1;
-
-  sorted.forEach((ev, idx) => {
-    const startMin = toMinutes(ev.start);
-    const endMin = ev.end ? toMinutes(ev.end) : startMin + 60;
-    const col = evCols[idx];
-
-    const topPx = (startMin - DAY_START * 60) / 60 * HOUR_PX;
+    const endMin   = ev.end ? toMinutes(ev.end) : startMin + 60;
+    const topPx    = (startMin - DAY_START * 60) / 60 * HOUR_PX;
     const heightPx = Math.max(22, (endMin - startMin) / 60 * HOUR_PX - 2);
     const c = CATS[ev.cat] || CATS['Personal'];
 
@@ -1558,44 +1513,25 @@ function renderDayView() {
     el.style.color = c.text;
     el.style.top = topPx + 'px';
     el.style.height = heightPx + 'px';
-    // Full width if no overlaps, split if there are
-    const colW = 100 / totalCols;
-    el.style.left = (col * colW) + '%';
-    el.style.right = ((totalCols - col - 1) * colW) + '%';
+    el.style.left = '4px';
+    el.style.right = '4px';
+    el.style.pointerEvents = 'all';
     el.innerHTML = `<div style="font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${ev.title}</div>
-      <div class="tl-time">${fmtTime(ev.start)}${ev.end ? ' – '+fmtTime(ev.end):''}</div>`;
+      <div class="tl-time">${fmtTime(ev.start)}${ev.end ? ' – ' + fmtTime(ev.end) : ''}</div>`;
     el.onclick = (e) => { e.stopPropagation(); openDetail(ev.id); };
-    rowsCol.appendChild(el);
+    evLayer.appendChild(el);
   });
 
-  // ── Double-click on empty space to add event ──
-  rowsCol.addEventListener('dblclick', (e) => {
-    if (e.target.closest('.tl-event')) return;
-    // Walk offsetTop up to rowsCol to get Y relative to the column
-    let relY = 0;
-    let node = e.target;
-    while (node && node !== rowsCol) {
-      relY += node.offsetTop;
-      node = node.offsetParent;
-    }
-    relY += e.offsetY;
-    const clickedMin = (relY / HOUR_PX) * 60 + DAY_START * 60;
-    const snapped = snapToQuarter(Math.round(clickedMin));
-    const startMin = Math.max(DAY_START * 60, Math.min(snapped, DAY_END * 60 - 30));
-    const endMin = Math.min(startMin + 60, DAY_END * 60);
-    openAdd(ds, minToTimeStr(startMin), minToTimeStr(endMin));
-  });
-
-  timeline.appendChild(labelCol);
-  timeline.appendChild(rowsCol);
-  dayBody.appendChild(timeline);
+  wrapper.appendChild(timeline);
+  wrapper.appendChild(evLayer);
+  body.appendChild(wrapper);
 
   // Scroll to first event or 8am
   const firstMin = timedEvs.length
     ? Math.min(...timedEvs.map(e => toMinutes(e.start)))
     : 8 * 60;
   const scrollTo = Math.max(0, (firstMin - DAY_START * 60 - 30) / 60 * HOUR_PX);
-  setTimeout(() => dayBody.scrollTop = scrollTo, 50);
+  setTimeout(() => body.scrollTop = scrollTo, 50);
 }
 
 // ── Utils ──
