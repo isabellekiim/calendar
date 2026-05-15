@@ -1437,7 +1437,7 @@ function renderDayView() {
     strip.innerHTML = '<span style="font-size:11px;color:var(--text3);">No all-day events</span>';
   }
   allDayEvs.forEach(ev => {
-    const c = CATS[ev.cat] || CATS['Personal'];
+    const c = CATS[ev.cat];
     const pill = document.createElement('div');
     pill.className = 'allday-pill';
     pill.style.background = c.bg;
@@ -1447,84 +1447,91 @@ function renderDayView() {
     strip.appendChild(pill);
   });
 
+  // Timeline
   const body = document.getElementById('dayview-body');
   body.innerHTML = '';
 
-  // Wrapper holds the CSS grid timeline + absolutely-positioned events layer
-  const wrapper = document.createElement('div');
-  wrapper.style.cssText = 'position:relative;';
+  const labels = document.createElement('div');
+  labels.className = 'timeline-labels';
+  labels.style.height = TOTAL_PX + 'px';
+  labels.style.position = 'relative';
 
-  // The CSS grid: label col + hour-row col, interleaved per row
-  const timeline = document.createElement('div');
-  timeline.className = 'timeline';
+  const grid = document.createElement('div');
+  grid.className = 'timeline-grid';
+  grid.style.height = TOTAL_PX + 'px';
+  grid.style.position = 'relative';
 
+  // Hour lines + labels
   for (let h = DAY_START; h <= DAY_END; h++) {
-    // Label
-    const lbl = document.createElement('div');
-    lbl.className = 'hour-label';
-    const hh = h % 12 || 12;
-    const ampm = h < 12 ? 'am' : 'pm';
-    lbl.textContent = h === DAY_START ? '' : `${hh}${ampm}`;
-    timeline.appendChild(lbl);
+    const top = (h - DAY_START) * HOUR_PX;
+    const line = document.createElement('div');
+    line.className = 'timeline-line hour';
+    line.style.top = top + 'px';
+    grid.appendChild(line);
 
-    // Hour row
-    const row = document.createElement('div');
-    row.className = 'hour-row';
-    timeline.appendChild(row);
+    // Half hour line
+    if (h < DAY_END) {
+      const half = document.createElement('div');
+      half.className = 'timeline-line';
+      half.style.top = (top + HOUR_PX/2) + 'px';
+      grid.appendChild(half);
+    }
+
+    const lbl = document.createElement('div');
+    lbl.className = 'timeline-label';
+    lbl.style.top = top + 'px';
+    const hh = h % 12 || 12;
+    const ampm = h < 12 ? 'a' : 'p';
+    lbl.textContent = `${hh}${ampm}`;
+    labels.appendChild(lbl);
   }
 
-  // Now-line (today only)
+  // Current time indicator
   const now = new Date();
   const nowDs = dateStr(now.getFullYear(), now.getMonth(), now.getDate());
   if (ds === nowDs) {
     const nowMin = now.getHours() * 60 + now.getMinutes();
     const startMin = DAY_START * 60;
-    if (nowMin >= startMin && nowMin <= DAY_END * 60) {
-      const pct = (nowMin - startMin) / ((DAY_END - DAY_START) * 60) * 100;
+    const endMin = DAY_END * 60;
+    if (nowMin >= startMin && nowMin <= endMin) {
       const nowLine = document.createElement('div');
-      nowLine.className = 'now-line';
-      // position relative to the events layer (left col = 44px)
-      nowLine.style.cssText = `position:absolute;left:44px;right:0;top:calc(${pct}% * ${(DAY_END - DAY_START)});z-index:10;`;
-      // Use pixel offset instead
-      const topPx = (nowMin - startMin) / 60 * HOUR_PX;
-      nowLine.style.cssText = `position:absolute;left:44px;right:0;top:${topPx}px;height:2px;background:#d95fa0;z-index:10;pointer-events:none;`;
-      const dot = document.createElement('div');
-      dot.className = 'now-dot';
-      nowLine.appendChild(dot);
-      wrapper.appendChild(nowLine);
+      nowLine.className = 'timeline-now';
+      nowLine.style.top = ((nowMin - startMin) / 60 * HOUR_PX) + 'px';
+      grid.appendChild(nowLine);
     }
   }
 
-  // Events layer — absolutely positioned over the right column
-  const evLayer = document.createElement('div');
-  evLayer.style.cssText = `position:absolute;top:0;left:44px;right:0;bottom:0;pointer-events:none;`;
-
+  // Timed events — handle overlaps
   const sorted = [...timedEvs].sort((a,b) => toMinutes(a.start) - toMinutes(b.start));
+  const columns = [];
   sorted.forEach(ev => {
     const startMin = toMinutes(ev.start);
-    const endMin   = ev.end ? toMinutes(ev.end) : startMin + 60;
-    const topPx    = (startMin - DAY_START * 60) / 60 * HOUR_PX;
-    const heightPx = Math.max(22, (endMin - startMin) / 60 * HOUR_PX - 2);
-    const c = CATS[ev.cat] || CATS['Personal'];
+    const endMin = ev.end ? toMinutes(ev.end) : startMin + 60;
+    let col = 0;
+    while (columns[col] && columns[col] > startMin) col++;
+    columns[col] = endMin;
+    const totalCols = Math.max(...columns.map((_,i) => i)) + 1;
+
+    const top = Math.max(0, (startMin - DAY_START * 60) / 60 * HOUR_PX);
+    const height = Math.max(22, (endMin - startMin) / 60 * HOUR_PX - 3);
+    const c = CATS[ev.cat];
 
     const el = document.createElement('div');
-    el.className = 'tl-event';
+    el.className = 'timeline-event';
     el.style.background = c.bg;
     el.style.color = c.text;
-    el.style.top = topPx + 'px';
-    el.style.height = heightPx + 'px';
-    el.style.left = '4px';
-    el.style.right = '4px';
-    el.style.pointerEvents = 'all';
+    el.style.top = top + 'px';
+    el.style.height = height + 'px';
+    el.style.left = (4 + col * (96 / totalCols)) + '%';
+    el.style.right = ((totalCols - col - 1) * (96 / totalCols)) + '%';
     el.innerHTML = `<div style="font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${ev.title}</div>
-      <div class="tl-time">${fmtTime(ev.start)}${ev.end ? ' – ' + fmtTime(ev.end) : ''}</div>`;
-    el.onclick = (e) => { e.stopPropagation(); openDetail(ev.id); };
-    evLayer.appendChild(el);
+      <div class="ev-time">${fmtTime(ev.start)}${ev.end ? ' – '+fmtTime(ev.end):''}</div>`;
+    el.onclick = () => openDetail(ev.id);
+    grid.appendChild(el);
   });
 
-  wrapper.appendChild(timeline);
-  wrapper.appendChild(evLayer);
-  body.appendChild(wrapper);
+  body.appendChild(labels);
+  body.appendChild(grid);
 
   // Scroll to first event or 8am
   const firstMin = timedEvs.length
@@ -1548,11 +1555,8 @@ function showToast(msg) {
 }
 
 // ── Init ──
-loadCustomCats();
 const t = new Date();
 curMonth = t.getMonth(); curYear = t.getFullYear();
-// Sync activeFilters with all cats (including custom ones loaded from localStorage)
-activeFilters = new Set(Object.keys(CATS));
 renderFilters();
 loadEvents().then(() => renderCal());
 </script>
