@@ -7,621 +7,157 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f5f2ed;
-    --surface: #ffffff;
-    --surface2: #f0ece5;
-    --border: #e0d9cf;
-    --text: #1a1714;
-    --text2: #6b6258;
-    --text3: #9e948a;
-    --radius: 12px;
-    --radius-sm: 7px;
-
-    --cat-hmchs-bg: #ede9ff; --cat-hmchs-text: #3a2fa0; --cat-hmchs-dot: #7c72e0;
-    --cat-bch-bg: #d8f5eb; --cat-bch-text: #0d6644; --cat-bch-dot: #22a372;
-    --cat-ann-bg: #fde8f2; --cat-ann-text: #8c2158; --cat-ann-dot: #d95fa0;
-    --cat-vball-bg: #deeeff; --cat-vball-text: #0d4480; --cat-vball-dot: #3d8ee0;
-    --cat-personal-bg: #fff3d8; --cat-personal-text: #7a4800; --cat-personal-dot: #e09020;
-    --cat-school-bg: #e6f5d0; --cat-school-text: #2d5c00; --cat-school-dot: #6ab52a;
-    --cat-sbux-bg: #d4f0e8; --cat-sbux-text: #00422a; --cat-sbux-dot: #00704a;
-    --cat-bmc-bg: #ece9e4; --cat-bmc-text: #3d3730; --cat-bmc-dot: #8a7e74;
+    --bg: #f5f2ed; --surface: #ffffff; --surface2: #f0ece5;
+    --border: #e0d9cf; --text: #1a1714; --text2: #6b6258; --text3: #9e948a;
+    --radius: 12px; --radius-sm: 7px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 0;
-  }
-
-  /* ── TOP BAR ── */
-  .topbar {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
+  /* TOP BAR */
+  .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
   .topbar-left { display: flex; align-items: center; gap: 16px; }
-  .app-name {
-    font-size: 17px;
-    font-weight: 500;
-    letter-spacing: -0.3px;
-    color: var(--text);
-  }
+  .app-name { font-size: 17px; font-weight: 500; letter-spacing: -0.3px; }
   .month-nav { display: flex; align-items: center; gap: 6px; }
-  .nav-btn {
-    width: 30px; height: 30px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: transparent;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--text2);
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.15s;
-  }
+  .nav-btn { width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 8px; background: transparent; cursor: pointer; font-size: 14px; color: var(--text2); display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
   .nav-btn:hover { background: var(--surface2); }
-  .month-title {
-    font-size: 15px;
-    font-weight: 500;
-    min-width: 150px;
-    text-align: center;
-    color: var(--text);
-  }
-  .today-btn {
-    font-size: 12px;
-    padding: 5px 12px;
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    background: transparent;
-    cursor: pointer;
-    color: var(--text2);
-    font-family: inherit;
-    transition: background 0.15s;
-  }
+  .month-title { font-size: 15px; font-weight: 500; min-width: 150px; text-align: center; }
+  .today-btn { font-size: 12px; padding: 5px 12px; border: 1px solid var(--border); border-radius: 99px; background: transparent; cursor: pointer; color: var(--text2); font-family: inherit; transition: background 0.15s; }
   .today-btn:hover { background: var(--surface2); }
-  .add-btn {
-    font-size: 13px;
-    padding: 7px 16px;
-    border: none;
-    border-radius: 99px;
-    background: var(--text);
-    color: #fff;
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: 500;
-    transition: opacity 0.15s;
-  }
+  .add-btn { font-size: 13px; padding: 7px 16px; border: none; border-radius: 99px; background: var(--text); color: #fff; cursor: pointer; font-family: inherit; font-weight: 500; transition: opacity 0.15s; }
   .add-btn:hover { opacity: 0.85; }
 
-  /* ── FILTER CHIPS ── */
-  .filter-bar {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 10px 24px;
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
+  /* FILTER BAR */
+  .filter-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 24px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
   .filter-label { font-size: 11px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px; }
-  .chip {
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px 11px;
-    border-radius: 99px;
-    border: 1.5px solid transparent;
-    cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
-    user-select: none;
-  }
+  .chip { font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 99px; border: 1.5px solid transparent; cursor: pointer; transition: opacity 0.15s, transform 0.1s; user-select: none; }
   .chip.off { opacity: 0.3; }
   .chip:active { transform: scale(0.96); }
-  .manage-cats-btn {
-    font-size: 11px;
-    padding: 4px 10px;
-    border-radius: 99px;
-    border: 1.5px dashed var(--border);
-    background: transparent;
-    color: var(--text3);
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: 500;
-    transition: background 0.15s, color 0.15s;
-    margin-left: 4px;
-  }
+  .manage-cats-btn { font-size: 11px; padding: 4px 10px; border-radius: 99px; border: 1.5px dashed var(--border); background: transparent; color: var(--text3); cursor: pointer; font-family: inherit; font-weight: 500; transition: background 0.15s, color 0.15s; margin-left: 4px; }
   .manage-cats-btn:hover { background: var(--surface2); color: var(--text2); }
 
-  /* ── CALENDAR GRID ── */
+  /* CALENDAR GRID */
   .cal-wrap { padding: 20px 24px; }
-  .day-headers {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0,1fr));
-    gap: 3px;
-    margin-bottom: 3px;
-  }
-  .day-header {
-    text-align: center;
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--text3);
-    padding: 4px 0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .cal-grid {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0,1fr));
-    gap: 3px;
-  }
-  .day-cell {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 6px;
-    min-height: 100px;
-    cursor: default;
-  }
+  .day-headers { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 3px; margin-bottom: 3px; }
+  .day-header { text-align: center; font-size: 11px; font-weight: 500; color: var(--text3); padding: 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 3px; }
+  .day-cell { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px; min-height: 100px; cursor: pointer; transition: background 0.1s; }
   @media (max-width: 600px) { .day-cell { min-height: 72px; } }
   .day-cell.other { background: var(--surface2); opacity: 0.6; }
   .day-cell.today { border-color: #7c72e0; border-width: 2px; }
-  .day-num {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text3);
-    margin-bottom: 3px;
-    font-family: 'DM Mono', monospace;
-  }
-  .day-num.today-num {
-    color: #3a2fa0;
-    font-weight: 700;
-  }
-  .event-chip {
-    font-size: 10px;
-    font-weight: 500;
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-bottom: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-    display: block;
-    transition: filter 0.1s;
-    line-height: 1.5;
-  }
+  .day-cell:hover { background: var(--surface2); }
+  .day-num { font-size: 12px; font-weight: 500; color: var(--text3); margin-bottom: 3px; font-family: 'DM Mono', monospace; }
+  .day-num.today-num { color: #3a2fa0; font-weight: 700; }
+  .event-chip { font-size: 10px; font-weight: 500; padding: 2px 6px; border-radius: 4px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; display: block; transition: filter 0.1s; line-height: 1.5; }
   .event-chip:hover { filter: brightness(0.93); }
-  .more-chip {
-    font-size: 10px;
-    color: var(--text3);
-    padding: 1px 4px;
-    cursor: pointer;
-    display: block;
-  }
+  .more-chip { font-size: 10px; color: var(--text3); padding: 1px 4px; cursor: pointer; display: block; }
   .more-chip:hover { color: var(--text2); }
 
-  /* ── DAY VIEW ── */
-  .day-view-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.3);
-    z-index: 200;
-    align-items: flex-end;
-    justify-content: center;
-    padding: 0;
-  }
+  /* DAY VIEW */
+  .day-view-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 200; align-items: flex-end; justify-content: center; }
+  @media (min-width: 600px) { .day-view-overlay { align-items: center; } }
   .day-view-overlay.open { display: flex; }
-  .day-view {
-    background: var(--surface);
-    border-radius: var(--radius) var(--radius) 0 0;
-    border: 1px solid var(--border);
-    border-bottom: none;
-    width: 100%;
-    max-width: 680px;
-    height: 88vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .day-view-header {
-    padding: 16px 20px 12px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-  .day-view-title { font-size: 16px; font-weight: 500; color: var(--text); }
+  .day-view { background: var(--surface); border-radius: var(--radius) var(--radius) 0 0; width: 100%; max-width: 580px; height: 90vh; display: flex; flex-direction: column; overflow: hidden; }
+  @media (min-width: 600px) { .day-view { border-radius: var(--radius); max-height: 85vh; } }
+  .day-view-header { padding: 14px 18px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .day-view-title { font-size: 15px; font-weight: 500; }
+  .day-view-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
   .day-view-nav { display: flex; gap: 6px; align-items: center; }
-  .day-view-body {
-    flex: 1;
-    overflow-y: auto;
-    position: relative;
-    display: flex;
-  }
-  .timeline-labels {
-    width: 48px;
-    flex-shrink: 0;
-    position: relative;
-  }
-  .timeline-label {
+  .allday-strip { padding: 7px 16px 7px 60px; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 5px; flex-shrink: 0; min-height: 34px; align-items: center; }
+  .allday-pill { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 99px; cursor: pointer; transition: filter 0.1s; }
+  .allday-pill:hover { filter: brightness(0.93); }
+  .day-view-hint { font-size: 10px; color: var(--text3); padding: 4px 16px 4px 60px; flex-shrink: 0; border-bottom: 1px solid var(--border); font-style: italic; }
+  .day-view-body { flex: 1; overflow-y: auto; position: relative; display: flex; user-select: none; }
+
+  /* TIMELINE */
+  .tl-labels { width: 52px; flex-shrink: 0; position: relative; }
+  .tl-label { position: absolute; right: 8px; font-size: 10px; color: var(--text3); font-family: 'DM Mono', monospace; white-space: nowrap; transform: translateY(-50%); }
+  .tl-grid { flex: 1; position: relative; border-left: 1px solid var(--border); }
+  .tl-line { position: absolute; left: 0; right: 0; pointer-events: none; }
+  .tl-line.hour { border-top: 1px solid var(--border); }
+  .tl-line.half { border-top: 1px dashed var(--border); opacity: 0.5; }
+  .tl-now { position: absolute; left: 0; right: 0; border-top: 2px solid #d95fa0; z-index: 10; pointer-events: none; }
+  .tl-now::before { content: ''; position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%; background: #d95fa0; }
+
+  /* TIMELINE EVENTS */
+  .tl-event {
     position: absolute;
-    right: 8px;
-    font-size: 10px;
-    color: var(--text3);
-    font-family: 'DM Mono', monospace;
-    transform: translateY(-50%);
-    white-space: nowrap;
-  }
-  .timeline-grid {
-    flex: 1;
-    position: relative;
-    border-left: 1px solid var(--border);
-  }
-  .timeline-line {
-    position: absolute;
-    left: 0; right: 0;
-    border-top: 1px solid var(--border);
-    opacity: 0.5;
-  }
-  .timeline-line.hour { opacity: 1; }
-  .timeline-now {
-    position: absolute;
-    left: 0; right: 0;
-    border-top: 2px solid #d95fa0;
-    z-index: 5;
-  }
-  .timeline-now::before {
-    content: '';
-    position: absolute;
-    left: -4px; top: -4px;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #d95fa0;
-  }
-  .timeline-event {
-    position: absolute;
-    left: 4px; right: 4px;
     border-radius: 5px;
-    padding: 3px 7px;
-    font-size: 11px;
-    font-weight: 500;
-    cursor: pointer;
+    padding: 4px 7px 14px;
+    font-size: 11px; font-weight: 500;
+    cursor: grab;
     overflow: hidden;
-    transition: filter 0.1s;
     z-index: 3;
     line-height: 1.4;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.15s;
+    touch-action: none;
   }
-  .timeline-event:hover { filter: brightness(0.93); }
-  .timeline-event .ev-time { font-size: 10px; opacity: 0.75; font-family: 'DM Mono', monospace; }
-  .allday-strip {
-    padding: 8px 20px 8px 68px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    flex-shrink: 0;
-    min-height: 36px;
-    align-items: center;
+  .tl-event.dragging { cursor: grabbing; box-shadow: 0 4px 16px rgba(0,0,0,0.18); opacity: 0.92; z-index: 20; }
+  .tl-event .tl-time { font-size: 10px; opacity: 0.75; font-family: 'DM Mono', monospace; }
+  .tl-event .tl-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tl-resize-handle {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 10px;
+    cursor: ns-resize; display: flex; align-items: center; justify-content: center;
   }
-  .allday-pill {
-    font-size: 11px; font-weight: 500;
-    padding: 3px 9px; border-radius: 99px;
-    cursor: pointer;
-    transition: filter 0.1s;
-  }
-  .allday-pill:hover { filter: brightness(0.93); }
-  .free-label {
-    position: absolute;
-    right: 6px;
-    font-size: 9px;
-    color: var(--text3);
-    font-style: italic;
-    z-index: 1;
+  .tl-resize-handle::after { content: ''; width: 24px; height: 2px; border-radius: 99px; background: currentColor; opacity: 0.3; }
+  .tl-resize-top {
+    position: absolute; top: 0; left: 0; right: 0; height: 8px;
+    cursor: ns-resize;
   }
 
-  /* ── DAY CELL clickable ── */
-  .day-cell { cursor: pointer; }
-  .day-cell:hover { background: var(--surface2); }
-  .day-cell.other:hover { background: var(--surface2); }
-
-
-
-  /* ── MODAL ── */
-  .overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.3);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
+  /* MODAL */
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
   .overlay.open { display: flex; }
-  .modal {
-    background: var(--surface);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    width: 100%;
-    max-width: 440px;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 24px;
-    position: relative;
-  }
-  .modal h2 { font-size: 17px; font-weight: 500; margin-bottom: 18px; color: var(--text); }
-  .modal-close {
-    position: absolute; top: 16px; right: 16px;
-    width: 28px; height: 28px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    background: var(--surface2);
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--text2);
-    display: flex; align-items: center; justify-content: center;
-  }
+  .modal { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; padding: 24px; position: relative; }
+  .modal h2 { font-size: 17px; font-weight: 500; margin-bottom: 18px; }
+  .modal-close { position: absolute; top: 16px; right: 16px; width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 50%; background: var(--surface2); cursor: pointer; font-size: 14px; color: var(--text2); display: flex; align-items: center; justify-content: center; }
   .field { margin-bottom: 14px; }
   .field label { display: block; font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: 5px; }
-  .field input, .field select, .field textarea {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-family: inherit;
-    background: var(--bg);
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.15s;
-  }
+  .field input, .field select, .field textarea { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; font-family: inherit; background: var(--bg); color: var(--text); outline: none; transition: border-color 0.15s; }
   .field input:focus, .field select:focus, .field textarea:focus { border-color: #7c72e0; }
   .field textarea { resize: vertical; min-height: 60px; }
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; flex-wrap: wrap; }
-  .btn-cancel {
-    padding: 8px 18px; border: 1px solid var(--border); border-radius: 99px;
-    background: transparent; cursor: pointer; font-size: 13px; font-family: inherit; color: var(--text2);
-  }
+  .btn-cancel { padding: 8px 18px; border: 1px solid var(--border); border-radius: 99px; background: transparent; cursor: pointer; font-size: 13px; font-family: inherit; color: var(--text2); }
   .btn-cancel:hover { background: var(--surface2); }
-  .btn-save {
-    padding: 8px 20px; border: none; border-radius: 99px;
-    background: var(--text); color: #fff; cursor: pointer; font-size: 13px; font-family: inherit; font-weight: 500;
-  }
+  .btn-save { padding: 8px 20px; border: none; border-radius: 99px; background: var(--text); color: #fff; cursor: pointer; font-size: 13px; font-family: inherit; font-weight: 500; }
   .btn-save:hover { opacity: 0.85; }
-  .btn-delete {
-    padding: 8px 18px; border: 1px solid #fca5a5; border-radius: 99px;
-    background: #fff5f5; color: #b91c1c; cursor: pointer; font-size: 13px; font-family: inherit;
-    margin-right: auto;
-  }
+  .btn-delete { padding: 8px 18px; border: 1px solid #fca5a5; border-radius: 99px; background: #fff5f5; color: #b91c1c; cursor: pointer; font-size: 13px; font-family: inherit; margin-right: auto; }
   .btn-delete:hover { background: #fee2e2; }
-
-  /* ── EVENT DETAIL MODAL ── */
-  .detail-cat-badge {
-    display: inline-block;
-    font-size: 11px; font-weight: 500;
-    padding: 3px 10px; border-radius: 99px;
-    margin-bottom: 12px;
-  }
+  .detail-cat-badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 99px; margin-bottom: 12px; }
   .detail-row { font-size: 13px; color: var(--text2); margin-bottom: 6px; display: flex; gap: 8px; }
   .detail-icon { flex-shrink: 0; width: 16px; text-align: center; }
   .detail-actions { display: flex; gap: 8px; margin-top: 18px; }
-  .btn-edit {
-    flex: 1; padding: 9px; border: 1px solid var(--border); border-radius: var(--radius-sm);
-    background: transparent; cursor: pointer; font-size: 13px; font-family: inherit; color: var(--text);
-    font-weight: 500;
-  }
+  .btn-edit { flex: 1; padding: 9px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: transparent; cursor: pointer; font-size: 13px; font-family: inherit; font-weight: 500; }
   .btn-edit:hover { background: var(--surface2); }
-  .btn-del2 {
-    flex: 1; padding: 9px; border: 1px solid #fca5a5; border-radius: var(--radius-sm);
-    background: #fff5f5; color: #b91c1c; cursor: pointer; font-size: 13px; font-family: inherit; font-weight: 500;
-  }
+  .btn-del2 { flex: 1; padding: 9px; border: 1px solid #fca5a5; border-radius: var(--radius-sm); background: #fff5f5; color: #b91c1c; cursor: pointer; font-size: 13px; font-family: inherit; font-weight: 500; }
   .btn-del2:hover { background: #fee2e2; }
-
-  /* ── IMPORT MODAL ── */
-  .import-btn {
-    font-size: 12px; padding: 6px 14px;
-    border: 1px solid var(--border); border-radius: 99px;
-    background: transparent; cursor: pointer; color: var(--text2); font-family: inherit;
-    transition: background 0.15s;
-  }
+  .import-btn { font-size: 12px; padding: 6px 14px; border: 1px solid var(--border); border-radius: 99px; background: transparent; cursor: pointer; color: var(--text2); font-family: inherit; transition: background 0.15s; }
   .import-btn:hover { background: var(--surface2); }
 
-  /* ── DAY VIEW ── */
-  .day-view-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.3);
-    z-index: 200;
-    align-items: flex-end;
-    justify-content: center;
-  }
-  @media (min-width: 600px) {
-    .day-view-overlay { align-items: center; }
-  }
-  .day-view-overlay.open { display: flex; }
-  .day-view {
-    background: var(--surface);
-    border-radius: var(--radius) var(--radius) 0 0;
-    width: 100%;
-    max-width: 540px;
-    max-height: 88vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  @media (min-width: 600px) {
-    .day-view { border-radius: var(--radius); max-height: 82vh; }
-  }
-  .day-view-header {
-    padding: 16px 20px 12px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-  .day-view-title { font-size: 16px; font-weight: 500; color: var(--text); }
-  .day-view-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
-  .day-view-nav { display: flex; gap: 6px; align-items: center; }
-  .day-view-body { overflow-y: auto; flex: 1; position: relative; }
-  .timeline {
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    position: relative;
-    padding-bottom: 16px;
-  }
-  .hour-label {
-    font-size: 10px;
-    color: var(--text3);
-    font-family: 'DM Mono', monospace;
-    text-align: right;
-    padding-right: 8px;
-    padding-top: 0;
-    height: 48px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding-top: 0px;
-    position: relative;
-    top: -6px;
-  }
-  .hour-row {
-    height: 48px;
-    border-top: 1px solid var(--border);
-    position: relative;
-  }
-  .hour-row.half { border-top: 1px dashed var(--border); opacity: 0.5; }
-  .timeline-events {
-    position: absolute;
-    top: 0; left: 44px; right: 0;
-    pointer-events: none;
-  }
-  .tl-event {
-    position: absolute;
-    left: 4px; right: 4px;
-    border-radius: 5px;
-    padding: 3px 7px;
-    font-size: 11px;
-    font-weight: 500;
-    overflow: hidden;
-    cursor: pointer;
-    pointer-events: all;
-    line-height: 1.4;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-  .tl-event:hover { filter: brightness(0.93); }
-  .tl-event .tl-time { font-size: 10px; opacity: 0.75; font-family: 'DM Mono', monospace; }
-  .allday-strip {
-    padding: 8px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    flex-shrink: 0;
-  }
-  .allday-strip-label { font-size: 10px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; margin-right: 4px; display: flex; align-items: center; }
-  .allday-chip {
-    font-size: 11px; font-weight: 500;
-    padding: 3px 9px; border-radius: 99px;
-    cursor: pointer;
-  }
-  .free-time-bar {
-    position: absolute;
-    left: 0; right: 0;
-    background: #e6f5d0;
-    opacity: 0.45;
-    pointer-events: none;
-    border-left: 2px solid #6ab52a;
-  }
-  .now-line {
-    position: absolute;
-    left: 0; right: 0;
-    height: 2px;
-    background: #d95fa0;
-    z-index: 10;
-    pointer-events: none;
-  }
-  .now-dot {
-    position: absolute;
-    left: -4px; top: -4px;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #d95fa0;
-  }
-
-  /* ── MANAGE CATEGORIES MODAL ── */
+  /* MANAGE CATEGORIES */
   .cat-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; max-height: 260px; overflow-y: auto; }
-  .cat-row {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 10px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--bg);
-  }
+  .cat-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); }
   .cat-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-  .cat-row-name { font-size: 13px; flex: 1; font-weight: 500; color: var(--text); }
+  .cat-row-name { font-size: 13px; flex: 1; font-weight: 500; }
   .cat-row-swatch { width: 22px; height: 22px; border-radius: 5px; flex-shrink: 0; }
-  .cat-del-btn {
-    width: 24px; height: 24px; border-radius: 50%;
-    border: 1px solid #fca5a5; background: #fff5f5; color: #b91c1c;
-    font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
+  .cat-del-btn { width: 24px; height: 24px; border-radius: 50%; border: 1px solid #fca5a5; background: #fff5f5; color: #b91c1c; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .cat-del-btn:hover { background: #fee2e2; }
   .cat-del-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-  .new-cat-form {
-    border: 1px dashed var(--border);
-    border-radius: var(--radius-sm);
-    padding: 12px;
-    background: var(--bg);
-  }
+  .new-cat-form { border: 1px dashed var(--border); border-radius: var(--radius-sm); padding: 12px; background: var(--bg); }
   .new-cat-form h3 { font-size: 13px; font-weight: 500; color: var(--text2); margin-bottom: 10px; }
   .new-cat-row { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; }
-  .new-cat-row input {
-    padding: 7px 10px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-family: inherit;
-    background: var(--surface);
-    color: var(--text);
-    outline: none;
-  }
+  .new-cat-row input { padding: 7px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-family: inherit; background: var(--surface); color: var(--text); outline: none; }
   .new-cat-row input:focus { border-color: #7c72e0; }
   .color-picker-wrap { position: relative; }
-  .color-preview {
-    width: 34px; height: 34px; border-radius: var(--radius-sm);
-    border: 1px solid var(--border); cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-  .color-picker-wrap input[type="color"] {
-    position: absolute; opacity: 0; width: 34px; height: 34px; top: 0; left: 0; cursor: pointer; padding: 0; border: none;
-  }
-  .btn-add-cat {
-    padding: 7px 14px; border: none; border-radius: 99px;
-    background: var(--text); color: #fff; cursor: pointer; font-size: 12px; font-family: inherit; font-weight: 500;
-    white-space: nowrap;
-  }
+  .color-preview { width: 34px; height: 34px; border-radius: var(--radius-sm); border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .color-picker-wrap input[type="color"] { position: absolute; opacity: 0; width: 34px; height: 34px; top: 0; left: 0; cursor: pointer; padding: 0; border: none; }
+  .btn-add-cat { padding: 7px 14px; border: none; border-radius: 99px; background: var(--text); color: #fff; cursor: pointer; font-size: 12px; font-family: inherit; font-weight: 500; white-space: nowrap; }
   .btn-add-cat:hover { opacity: 0.85; }
 
-  /* ── TOAST ── */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
-    background: var(--text); color: #fff;
-    padding: 10px 20px; border-radius: 99px; font-size: 13px;
-    z-index: 999; opacity: 0; transition: all 0.3s;
-    pointer-events: none;
-  }
+  /* TOAST */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--text); color: #fff; padding: 10px 20px; border-radius: 99px; font-size: 13px; z-index: 999; opacity: 0; transition: all 0.3s; pointer-events: none; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   @media (max-width: 500px) {
@@ -677,49 +213,19 @@
   <div class="modal">
     <div class="modal-close" onclick="closeOverlay('form-overlay')">✕</div>
     <h2 id="form-title">Add Event</h2>
-    <div class="field">
-      <label>Event name</label>
-      <input type="text" id="f-name" placeholder="e.g. Volleyball Practice">
-    </div>
-    <div class="field">
-      <label>Category</label>
-      <select id="f-cat"></select>
-    </div>
+    <div class="field"><label>Event name</label><input type="text" id="f-name" placeholder="e.g. Volleyball Practice"></div>
+    <div class="field"><label>Category</label><select id="f-cat"></select></div>
     <div class="field-row">
-      <div class="field">
-        <label>Start date</label>
-        <input type="date" id="f-date">
-      </div>
-      <div class="field">
-        <label>End date <span style="color:var(--text3);font-weight:400;">(optional)</span></label>
-        <input type="date" id="f-end-date">
-      </div>
+      <div class="field"><label>Start date</label><input type="date" id="f-date"></div>
+      <div class="field"><label>End date <span style="color:var(--text3);font-weight:400;">(optional)</span></label><input type="date" id="f-end-date"></div>
     </div>
-    <div class="field">
-      <label>All day?</label>
-      <select id="f-allday" onchange="toggleTimes()">
-        <option value="no">No — has a specific time</option>
-        <option value="yes">Yes — all day</option>
-      </select>
-    </div>
+    <div class="field"><label>All day?</label><select id="f-allday" onchange="toggleTimes()"><option value="no">No — has a specific time</option><option value="yes">Yes — all day</option></select></div>
     <div id="time-fields" class="field-row">
-      <div class="field">
-        <label>Start time</label>
-        <input type="time" id="f-start">
-      </div>
-      <div class="field">
-        <label>End time</label>
-        <input type="time" id="f-end">
-      </div>
+      <div class="field"><label>Start time</label><input type="time" id="f-start"></div>
+      <div class="field"><label>End time</label><input type="time" id="f-end"></div>
     </div>
-    <div class="field">
-      <label>Location <span style="color:var(--text3);font-weight:400;">(optional)</span></label>
-      <input type="text" id="f-loc" placeholder="e.g. Mohegan Sun Arena">
-    </div>
-    <div class="field">
-      <label>Notes <span style="color:var(--text3);font-weight:400;">(optional)</span></label>
-      <textarea id="f-notes" placeholder="Any extra details..."></textarea>
-    </div>
+    <div class="field"><label>Location <span style="color:var(--text3);font-weight:400;">(optional)</span></label><input type="text" id="f-loc" placeholder="e.g. Mohegan Sun Arena"></div>
+    <div class="field"><label>Notes <span style="color:var(--text3);font-weight:400;">(optional)</span></label><textarea id="f-notes" placeholder="Any extra details..."></textarea></div>
     <div class="modal-actions">
       <button class="btn-delete" id="btn-delete" style="display:none" onclick="deleteEvent()">Delete</button>
       <button class="btn-cancel" onclick="closeOverlay('form-overlay')">Cancel</button>
@@ -750,10 +256,7 @@
     <div class="modal-close" onclick="closeOverlay('import-overlay')">✕</div>
     <h2>Import events from Claude</h2>
     <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Paste a JSON export from another device (or from Claude) below. Events with matching IDs will be updated; new ones will be added. Existing events are never deleted.</p>
-    <div class="field">
-      <label>Paste JSON here</label>
-      <textarea id="import-json" style="min-height:140px;font-family:'DM Mono',monospace;font-size:12px;" placeholder='[{"id":999,"title":"New Event","cat":"Personal","date":"2026-08-01","allDay":true}]'></textarea>
-    </div>
+    <div class="field"><label>Paste JSON here</label><textarea id="import-json" style="min-height:140px;font-family:'DM Mono',monospace;font-size:12px;" placeholder='[{"id":999,"title":"New Event","cat":"Personal","date":"2026-08-01","allDay":true}]'></textarea></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeOverlay('import-overlay')">Cancel</button>
       <button class="btn-save" onclick="doImport()">Import</button>
@@ -786,17 +289,18 @@
 <div class="day-view-overlay" id="dayview-overlay" onclick="dayviewOverlayClick(event)">
   <div class="day-view">
     <div class="day-view-header">
+      <div>
+        <div class="day-view-title" id="dayview-title"></div>
+      </div>
       <div class="day-view-nav">
         <button class="nav-btn" onclick="shiftDay(-1)">&#8592;</button>
-        <div class="day-view-title" id="dayview-title"></div>
-        <button class="nav-btn" onclick="shiftDay(1)">&#8594;</button>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center;">
         <button class="today-btn" onclick="openDayView(today())">Today</button>
+        <button class="nav-btn" onclick="shiftDay(1)">&#8594;</button>
         <button class="modal-close" style="position:static;" onclick="closeOverlay('dayview-overlay')">✕</button>
       </div>
     </div>
     <div class="allday-strip" id="dayview-allday"></div>
+    <div class="day-view-hint">Double-tap any time slot to add an event · Drag event to move · Drag bottom edge to resize</div>
     <div class="day-view-body" id="dayview-body"></div>
   </div>
 </div>
@@ -804,13 +308,9 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Built-in categories (never deletable) ──
-const BUILTIN_CATS = new Set([
-  "HMCHS Intern","BCH Program","Anniversaries","Volleyball",
-  "Personal","School","Starbucks","BMC Volunteer", "Truly's"
-]);
+// ── Built-in categories ──
+const BUILTIN_CATS = new Set(["HMCHS Intern","BCH Program","Anniversaries","Volleyball","Personal","School","Starbucks","BMC Volunteer","Truly's"]);
 
-// ── Default CATS object — will be extended by custom cats ──
 let CATS = {
   "HMCHS Intern":  { bg:"#ede9ff", text:"#3a2fa0", dot:"#7c72e0" },
   "BCH Program":   { bg:"#d8f5eb", text:"#0d6644", dot:"#22a372" },
@@ -820,45 +320,20 @@ let CATS = {
   "School":        { bg:"#e6f5d0", text:"#2d5c00", dot:"#6ab52a" },
   "Starbucks":     { bg:"#d4f0e8", text:"#00422a", dot:"#00704a" },
   "BMC Volunteer": { bg:"#ece9e4", text:"#3d3730", dot:"#8a7e74" },
-  "Truly's": { bg:"#c2fcf4", text:"#303d3b", dot:"#4b7a74" },
+  "Truly's":       { bg:"#c2fcf4", text:"#303d3b", dot:"#4b7a74" },
 };
 
-// ── Derive text/dot colors from a hex color ──
-function hexToRgb(hex) {
-  const r = parseInt(hex.slice(1,3),16);
-  const g = parseInt(hex.slice(3,5),16);
-  const b = parseInt(hex.slice(5,7),16);
-  return {r,g,b};
-}
-function lightenHex(hex, factor=0.75) {
-  const {r,g,b} = hexToRgb(hex);
-  const lr = Math.round(r + (255-r)*factor);
-  const lg = Math.round(g + (255-g)*factor);
-  const lb = Math.round(b + (255-b)*factor);
-  return `#${lr.toString(16).padStart(2,'0')}${lg.toString(16).padStart(2,'0')}${lb.toString(16).padStart(2,'0')}`;
-}
-function darkenHex(hex, factor=0.5) {
-  const {r,g,b} = hexToRgb(hex);
-  return `#${Math.round(r*factor).toString(16).padStart(2,'0')}${Math.round(g*factor).toString(16).padStart(2,'0')}${Math.round(b*factor).toString(16).padStart(2,'0')}`;
-}
-function colorFromHex(hex) {
-  return { bg: lightenHex(hex, 0.82), text: darkenHex(hex, 0.55), dot: hex };
-}
+function hexToRgb(hex) { return { r:parseInt(hex.slice(1,3),16), g:parseInt(hex.slice(3,5),16), b:parseInt(hex.slice(5,7),16) }; }
+function lightenHex(hex, f=0.75) { const {r,g,b}=hexToRgb(hex); const lr=Math.round(r+(255-r)*f),lg=Math.round(g+(255-g)*f),lb=Math.round(b+(255-b)*f); return `#${lr.toString(16).padStart(2,'0')}${lg.toString(16).padStart(2,'0')}${lb.toString(16).padStart(2,'0')}`; }
+function darkenHex(hex, f=0.5) { const {r,g,b}=hexToRgb(hex); return `#${Math.round(r*f).toString(16).padStart(2,'0')}${Math.round(g*f).toString(16).padStart(2,'0')}${Math.round(b*f).toString(16).padStart(2,'0')}`; }
+function colorFromHex(hex) { return { bg:lightenHex(hex,0.82), text:darkenHex(hex,0.55), dot:hex }; }
 
-// ── Custom cat persistence ──
 function loadCustomCats() {
-  try {
-    const stored = JSON.parse(localStorage.getItem('cal_custom_cats') || '[]');
-    stored.forEach(({name, hex}) => {
-      CATS[name] = colorFromHex(hex);
-    });
-  } catch(e) {}
+  try { const s=JSON.parse(localStorage.getItem('cal_custom_cats')||'[]'); s.forEach(({name,hex})=>{ CATS[name]=colorFromHex(hex); }); } catch(e) {}
 }
 function saveCustomCats() {
-  const custom = Object.keys(CATS)
-    .filter(k => !BUILTIN_CATS.has(k))
-    .map(k => ({ name: k, hex: CATS[k].dot }));
-  localStorage.setItem('cal_custom_cats', JSON.stringify(custom));
+  const custom=Object.keys(CATS).filter(k=>!BUILTIN_CATS.has(k)).map(k=>({name:k,hex:CATS[k].dot}));
+  localStorage.setItem('cal_custom_cats',JSON.stringify(custom));
 }
 
 const SEED = [
@@ -945,39 +420,59 @@ const SEED = [
   {id:81,title:"MTCP Rehearsal",cat:"School",date:"2026-05-11",start:"15:45",end:"17:00"},
   {id:82,title:"MTCP Rehearsal",cat:"School",date:"2026-05-12",start:"15:45",end:"16:30"},
   {id:83,title:"Meeting w/ Malo",cat:"School",date:"2026-04-29",start:"13:15",end:"13:45"},
+  {id:200,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-05-04",start:"18:30",end:"20:00"},
+  {id:201,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-05-06",start:"18:30",end:"20:00"},
+  {id:202,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-05-11",start:"18:30",end:"20:00"},
+  {id:203,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-05-13",start:"18:30",end:"20:00"},
+  {id:204,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-05-18",start:"18:30",end:"20:00"},
+  {id:205,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-05-20",start:"18:30",end:"20:00"},
+  {id:206,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-05-25",start:"18:30",end:"20:00"},
+  {id:207,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-05-27",start:"18:30",end:"20:00"},
+  {id:208,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-06-01",start:"18:30",end:"20:00"},
+  {id:209,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-06-03",start:"18:30",end:"20:00"},
+  {id:210,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-06-08",start:"18:30",end:"20:00"},
+  {id:211,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-06-10",start:"18:30",end:"20:00"},
+  {id:212,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-06-15",start:"18:30",end:"20:00"},
+  {id:213,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-06-17",start:"18:30",end:"20:00"},
+  {id:214,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-06-20",start:"18:30",end:"20:00"},
 ];
 
 // ── Config ──
 const JSONBIN_BIN = '69f15490856a68218984a936';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
-function getKey() { return '$2a$10$bI2aWShkvBphrmT1IboOQeJh6pbAe2u51NtkhbbXWPlduxcYJ2SXS'; }
+function getKey() { return '$2a$10$yJIEm2swzxDnGie20FO.XuBnruEpDV5SrvP7t2C6vT91yDoxpJwDS'; }
 function saveKey(k) {}
+
+// ── Timeline constants ──
+const DAY_START = 0;   // midnight
+const DAY_END   = 24;  // midnight next day
+const HOUR_PX   = 64;
+const TOTAL_PX  = DAY_END * HOUR_PX; // 1536px
 
 // ── State ──
 let events = [];
 let activeFilters = new Set(Object.keys(CATS));
 let curMonth = new Date().getMonth();
-let curYear = new Date().getFullYear();
+let curYear  = new Date().getFullYear();
 let editingId = null;
-let detailId = null;
-let nextId = 1000;
+let detailId  = null;
+let nextId    = 1000;
 let saveTimer = null;
+let dayViewDate = null;
 
+// ── Sync ──
 function showStatus(msg, color) {
-  let el = document.getElementById('sync-status');
+  const el = document.getElementById('sync-status');
   if (!el) return;
   el.textContent = msg;
   el.style.color = color || 'var(--text3)';
 }
-
 async function loadEvents() {
   const key = getKey();
   showStatus('Loading…');
   try {
-    const res = await fetch(JSONBIN_URL + '/latest', {
-      headers: { 'X-Master-Key': key }
-    });
-    if (!res.ok) throw new Error('fetch failed');
+    const res = await fetch(JSONBIN_URL + '/latest', { headers: { 'X-Master-Key': key } });
+    if (!res.ok) throw new Error();
     const data = await res.json();
     const stored = data.record;
     if (Array.isArray(stored) && stored.length > 0 && !stored[0].init) {
@@ -996,16 +491,11 @@ async function loadEvents() {
     nextId = Math.max(...events.map(e => e.id), 999) + 1;
   }
 }
-
 async function pushToCloud() {
   const key = getKey();
   if (!key) return;
   try {
-    await fetch(JSONBIN_URL, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json', 'X-Master-Key': key },
-      body: JSON.stringify(events)
-    });
+    await fetch(JSONBIN_URL, { method:'PUT', headers:{'Content-Type':'application/json','X-Master-Key':key}, body:JSON.stringify(events) });
     localStorage.setItem('cal_events_backup', JSON.stringify(events));
     showStatus('Saved ✓', '#22a372');
     setTimeout(() => showStatus(''), 2000);
@@ -1014,7 +504,6 @@ async function pushToCloud() {
     showStatus('Saved locally (offline)', '#e09020');
   }
 }
-
 function save() {
   showStatus('Saving…');
   clearTimeout(saveTimer);
@@ -1022,19 +511,14 @@ function save() {
 }
 
 // ── Helpers ──
-function fmt(dateStr) {
-  const [y,m,d] = dateStr.split('-');
-  return new Date(+y, +m-1, +d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-}
-function fmtTime(t) {
-  if (!t) return '';
-  const [h,m] = t.split(':');
-  const hh = +h; const ampm = hh >= 12 ? 'PM' : 'AM';
-  return `${hh % 12 || 12}:${m} ${ampm}`;
-}
+function fmt(ds) { const [y,m,d]=ds.split('-'); return new Date(+y,+m-1,+d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
+function fmtTime(t) { if(!t)return''; const [h,m]=t.split(':'); const hh=+h; return `${hh%12||12}:${m} ${hh>=12?'PM':'AM'}`; }
 function pad(n) { return String(n).padStart(2,'0'); }
 function dateStr(y,m,d) { return `${y}-${pad(m+1)}-${pad(d)}`; }
-function today() { const t = new Date(); return dateStr(t.getFullYear(), t.getMonth(), t.getDate()); }
+function today() { const t=new Date(); return dateStr(t.getFullYear(),t.getMonth(),t.getDate()); }
+function minsToTime(mins) { const h=Math.floor(mins/60)%24; const m=mins%60; return `${pad(h)}:${pad(m)}`; }
+function timeToMins(t) { const [h,m]=t.split(':').map(Number); return h*60+m; }
+function snapMins(mins, snap=15) { return Math.round(mins/snap)*snap; }
 
 function getEventsForDate(ds) {
   return events.filter(e => {
@@ -1043,44 +527,36 @@ function getEventsForDate(ds) {
   });
 }
 
-// ── Populate category <select> ──
-function populateCatSelect(selectId, selectedVal) {
-  const sel = document.getElementById(selectId);
+function populateCatSelect(id, val) {
+  const sel = document.getElementById(id);
   if (!sel) return;
   sel.innerHTML = '';
   Object.keys(CATS).forEach(cat => {
-    const opt = document.createElement('option');
-    opt.value = cat;
-    opt.textContent = cat;
-    sel.appendChild(opt);
+    const o = document.createElement('option');
+    o.value = o.textContent = cat;
+    sel.appendChild(o);
   });
-  if (selectedVal && CATS[selectedVal]) sel.value = selectedVal;
+  if (val && CATS[val]) sel.value = val;
 }
 
-// ── Render filters ──
+// ── Filters ──
 function renderFilters() {
   const wrap = document.getElementById('filter-chips');
   wrap.innerHTML = '';
-  wrap.style.display = 'flex'; wrap.style.gap = '6px'; wrap.style.flexWrap = 'wrap';
+  wrap.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;';
   Object.entries(CATS).forEach(([cat, c]) => {
     const btn = document.createElement('button');
     btn.className = 'chip' + (activeFilters.has(cat) ? '' : ' off');
-    btn.style.background = c.bg;
-    btn.style.color = c.text;
-    btn.style.borderColor = c.dot + '55';
+    btn.style.background = c.bg; btn.style.color = c.text; btn.style.borderColor = c.dot+'55';
     btn.textContent = cat;
-    btn.onclick = () => {
-      if (activeFilters.has(cat)) activeFilters.delete(cat);
-      else activeFilters.add(cat);
-      btn.classList.toggle('off');
-      renderCal();
-    };
+    btn.onclick = () => { if(activeFilters.has(cat))activeFilters.delete(cat); else activeFilters.add(cat); btn.classList.toggle('off'); renderCal(); };
     wrap.appendChild(btn);
   });
 }
 
-// ── Render calendar ──
+// ── Calendar ──
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const DAYS_LONG = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 function renderCal() {
   document.getElementById('month-title').textContent = `${MONTHS[curMonth]} ${curYear}`;
@@ -1091,58 +567,33 @@ function renderCal() {
   const td = today();
 
   for (let i = 0; i < firstDay; i++) {
-    const cell = document.createElement('div');
-    cell.className = 'day-cell other';
-    grid.appendChild(cell);
+    const cell = document.createElement('div'); cell.className = 'day-cell other'; grid.appendChild(cell);
   }
-
   for (let d = 1; d <= daysInMonth; d++) {
     const ds = dateStr(curYear, curMonth, d);
-    const isToday = ds === td;
     const cell = document.createElement('div');
-    cell.className = 'day-cell' + (isToday ? ' today' : '');
-
+    cell.className = 'day-cell' + (ds === td ? ' today' : '');
     const num = document.createElement('div');
-    num.className = 'day-num' + (isToday ? ' today-num' : '');
-    num.textContent = d;
-    cell.appendChild(num);
-
+    num.className = 'day-num' + (ds === td ? ' today-num' : '');
+    num.textContent = d; cell.appendChild(num);
     const dayEvs = getEventsForDate(ds);
-    const max = 3;
-    dayEvs.slice(0, max).forEach(ev => {
+    dayEvs.slice(0,3).forEach(ev => {
       const c = CATS[ev.cat] || CATS['Personal'];
       const chip = document.createElement('div');
-      chip.className = 'event-chip';
-      chip.style.background = c.bg;
-      chip.style.color = c.text;
-      chip.textContent = ev.title;
-      chip.onclick = (e) => { e.stopPropagation(); openDetail(ev.id); };
+      chip.className = 'event-chip'; chip.style.background=c.bg; chip.style.color=c.text; chip.textContent=ev.title;
+      chip.onclick = e => { e.stopPropagation(); openDetail(ev.id); };
       cell.appendChild(chip);
     });
-    if (dayEvs.length > max) {
-      const more = document.createElement('div');
-      more.className = 'more-chip';
-      more.textContent = `+${dayEvs.length - max} more`;
-      more.onclick = (e) => { e.stopPropagation(); openDayView(ds); };
-      cell.appendChild(more);
+    if (dayEvs.length > 3) {
+      const more = document.createElement('div'); more.className='more-chip'; more.textContent=`+${dayEvs.length-3} more`;
+      more.onclick = e => { e.stopPropagation(); openDayView(ds); }; cell.appendChild(more);
     }
     cell.onclick = () => openDayView(ds);
-
     grid.appendChild(cell);
   }
 }
-
-function changeMonth(d) {
-  curMonth += d;
-  if (curMonth > 11) { curMonth = 0; curYear++; }
-  if (curMonth < 0) { curMonth = 11; curYear--; }
-  renderCal();
-}
-function goToday() {
-  const t = new Date();
-  curMonth = t.getMonth(); curYear = t.getFullYear();
-  renderCal();
-}
+function changeMonth(d) { curMonth+=d; if(curMonth>11){curMonth=0;curYear++;}if(curMonth<0){curMonth=11;curYear--;} renderCal(); }
+function goToday() { const t=new Date(); curMonth=t.getMonth(); curYear=t.getFullYear(); renderCal(); }
 
 // ── Detail modal ──
 function openDetail(id) {
@@ -1150,55 +601,34 @@ function openDetail(id) {
   const ev = events.find(e => e.id === id);
   const c = CATS[ev.cat] || CATS['Personal'];
   const badge = document.getElementById('detail-badge');
-  badge.textContent = ev.cat;
-  badge.style.background = c.bg;
-  badge.style.color = c.text;
+  badge.textContent = ev.cat; badge.style.background=c.bg; badge.style.color=c.text;
   document.getElementById('detail-title').textContent = ev.title;
-
-  let timeStr = '';
-  if (ev.allDay && ev.end_date && ev.end_date !== ev.date) {
-    timeStr = `${fmt(ev.date)} – ${fmt(ev.end_date)}`;
-  } else if (ev.allDay) {
-    timeStr = fmt(ev.date) + ' · All day';
-  } else {
-    timeStr = `${fmt(ev.date)} · ${fmtTime(ev.start)}${ev.end ? ' – '+fmtTime(ev.end) : ''}`;
-  }
+  let timeStr = ev.allDay && ev.end_date && ev.end_date!==ev.date ? `${fmt(ev.date)} – ${fmt(ev.end_date)}` : ev.allDay ? fmt(ev.date)+' · All day' : `${fmt(ev.date)} · ${fmtTime(ev.start)}${ev.end?' – '+fmtTime(ev.end):''}`;
   document.getElementById('detail-time').innerHTML = `<span class="detail-icon">🗓</span><span>${timeStr}</span>`;
-
   const locEl = document.getElementById('detail-loc');
-  if (ev.loc) { locEl.innerHTML = `<span class="detail-icon">📍</span><span>${ev.loc}</span>`; locEl.style.display='flex'; }
-  else locEl.style.display='none';
-
+  if (ev.loc) { locEl.innerHTML=`<span class="detail-icon">📍</span><span>${ev.loc}</span>`; locEl.style.display='flex'; } else locEl.style.display='none';
   const notesEl = document.getElementById('detail-notes');
-  if (ev.notes) { notesEl.innerHTML = `<span class="detail-icon">📝</span><span>${ev.notes}</span>`; notesEl.style.display='flex'; }
-  else notesEl.style.display='none';
-
+  if (ev.notes) { notesEl.innerHTML=`<span class="detail-icon">📝</span><span>${ev.notes}</span>`; notesEl.style.display='flex'; } else notesEl.style.display='none';
   document.getElementById('detail-overlay').classList.add('open');
 }
-function editFromDetail() {
-  closeOverlay('detail-overlay');
-  openEdit(detailId);
-}
+function editFromDetail() { closeOverlay('detail-overlay'); openEdit(detailId); }
 function deleteFromDetail() {
   if (!confirm('Delete this event?')) return;
   events = events.filter(e => e.id !== detailId);
-  save(); renderCal();
-  closeOverlay('detail-overlay');
+  save(); renderCal(); closeOverlay('detail-overlay');
+  if (dayViewDate) renderDayView();
   showToast('Event deleted');
 }
 
 // ── Form modal ──
-function toggleTimes() {
-  const allday = document.getElementById('f-allday').value === 'yes';
-  document.getElementById('time-fields').style.display = allday ? 'none' : 'grid';
-}
+function toggleTimes() { document.getElementById('time-fields').style.display = document.getElementById('f-allday').value==='yes'?'none':'grid'; }
 
 function openAdd(prefillDate, prefillStart, prefillEnd) {
   editingId = null;
   document.getElementById('form-title').textContent = 'Add Event';
   document.getElementById('btn-delete').style.display = 'none';
   document.getElementById('f-name').value = '';
-  populateCatSelect('f-cat', 'Personal');
+  populateCatSelect('f-cat','Personal');
   document.getElementById('f-date').value = prefillDate || today();
   document.getElementById('f-end-date').value = '';
   document.getElementById('f-allday').value = 'no';
@@ -1234,13 +664,8 @@ function saveEvent() {
   if (!title) { alert('Please enter an event name.'); return; }
   const date = document.getElementById('f-date').value;
   if (!date) { alert('Please pick a date.'); return; }
-
   const allDay = document.getElementById('f-allday').value === 'yes';
-  const ev = {
-    id: editingId || nextId++,
-    title,
-    cat: document.getElementById('f-cat').value,
-    date,
+  const ev = { id: editingId || nextId++, title, cat: document.getElementById('f-cat').value, date,
     end_date: document.getElementById('f-end-date').value || undefined,
     allDay: allDay || undefined,
     start: allDay ? undefined : (document.getElementById('f-start').value || undefined),
@@ -1248,316 +673,331 @@ function saveEvent() {
     loc: document.getElementById('f-loc').value.trim() || undefined,
     notes: document.getElementById('f-notes').value.trim() || undefined,
   };
-  Object.keys(ev).forEach(k => ev[k] === undefined && delete ev[k]);
-
-  if (editingId) {
-    const idx = events.findIndex(e => e.id === editingId);
-    events[idx] = ev;
-    showToast('Event updated');
-  } else {
-    events.push(ev);
-    showToast('Event added');
-  }
-  save(); renderCal();
-  closeOverlay('form-overlay');
+  Object.keys(ev).forEach(k => ev[k]===undefined && delete ev[k]);
+  if (editingId) { const idx=events.findIndex(e=>e.id===editingId); events[idx]=ev; showToast('Event updated'); }
+  else { events.push(ev); showToast('Event added'); }
+  save(); renderCal(); closeOverlay('form-overlay');
   if (dayViewDate) renderDayView();
 }
 
 function deleteEvent() {
   if (!confirm('Delete this event?')) return;
   events = events.filter(e => e.id !== editingId);
-  save(); renderCal();
-  closeOverlay('form-overlay');
-  showToast('Event deleted');
+  save(); renderCal(); closeOverlay('form-overlay');
   if (dayViewDate) renderDayView();
+  showToast('Event deleted');
 }
 
-// ── Import ──
-function openImport() { document.getElementById('import-json').value = ''; document.getElementById('import-overlay').classList.add('open'); }
-
+// ── Import / Export ──
+function openImport() { document.getElementById('import-json').value=''; document.getElementById('import-overlay').classList.add('open'); }
 function doExport() {
-  const json = JSON.stringify(events, null, 2);
-  const blob = new Blob([json], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  const date = new Date().toISOString().slice(0,10);
-  a.href = url;
-  a.download = `my_calendar_${date}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
+  const json=JSON.stringify(events,null,2); const blob=new Blob([json],{type:'application/json'}); const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=`my_calendar_${new Date().toISOString().slice(0,10)}.json`; a.click(); URL.revokeObjectURL(url);
   showToast('Events exported!');
 }
-
 function doImport() {
-  const raw = document.getElementById('import-json').value.trim();
-  let parsed;
-  try { parsed = JSON.parse(raw); } catch { alert('Invalid JSON. Please check the format.'); return; }
-  if (!Array.isArray(parsed)) { alert('Expected a JSON array of events.'); return; }
-  let added = 0, updated = 0;
-  parsed.forEach(ev => {
-    const idx = events.findIndex(e => e.id === ev.id);
-    if (idx >= 0) { events[idx] = ev; updated++; }
-    else { if (!ev.id) ev.id = nextId++; events.push(ev); added++; }
-  });
-  save(); renderCal();
-  closeOverlay('import-overlay');
+  const raw=document.getElementById('import-json').value.trim(); let parsed;
+  try { parsed=JSON.parse(raw); } catch { alert('Invalid JSON.'); return; }
+  if (!Array.isArray(parsed)) { alert('Expected a JSON array.'); return; }
+  let added=0,updated=0;
+  parsed.forEach(ev => { const idx=events.findIndex(e=>e.id===ev.id); if(idx>=0){events[idx]=ev;updated++;}else{if(!ev.id)ev.id=nextId++;events.push(ev);added++;} });
+  save(); renderCal(); closeOverlay('import-overlay');
   showToast(`Imported: ${added} added, ${updated} updated`);
 }
 
 // ── Manage Categories ──
-function openManageCats() {
-  renderCatList();
-  document.getElementById('new-cat-name').value = '';
-  document.getElementById('new-cat-color').value = '#4a90d9';
-  updateColorPreview();
-  document.getElementById('cats-overlay').classList.add('open');
-}
-
+function openManageCats() { renderCatList(); document.getElementById('new-cat-name').value=''; document.getElementById('new-cat-color').value='#4a90d9'; updateColorPreview(); document.getElementById('cats-overlay').classList.add('open'); }
 function renderCatList() {
-  const list = document.getElementById('cat-list');
-  list.innerHTML = '';
-  Object.entries(CATS).forEach(([name, c]) => {
-    const row = document.createElement('div');
-    row.className = 'cat-row';
-    const dot = document.createElement('div');
-    dot.className = 'cat-dot';
-    dot.style.background = c.dot;
-    const swatch = document.createElement('div');
-    swatch.className = 'cat-row-swatch';
-    swatch.style.background = c.bg;
-    swatch.style.border = `1px solid ${c.dot}55`;
-    const nameEl = document.createElement('div');
-    nameEl.className = 'cat-row-name';
-    nameEl.textContent = name;
-    const delBtn = document.createElement('button');
-    delBtn.className = 'cat-del-btn';
-    delBtn.innerHTML = '✕';
-    delBtn.title = BUILTIN_CATS.has(name) ? 'Built-in category — cannot delete' : 'Delete category';
-    delBtn.disabled = BUILTIN_CATS.has(name);
-    delBtn.onclick = () => deleteCategory(name);
-    row.appendChild(dot);
-    row.appendChild(swatch);
-    row.appendChild(nameEl);
-    row.appendChild(delBtn);
-    list.appendChild(row);
+  const list=document.getElementById('cat-list'); list.innerHTML='';
+  Object.entries(CATS).forEach(([name,c]) => {
+    const row=document.createElement('div'); row.className='cat-row';
+    const dot=document.createElement('div'); dot.className='cat-dot'; dot.style.background=c.dot;
+    const swatch=document.createElement('div'); swatch.className='cat-row-swatch'; swatch.style.background=c.bg; swatch.style.border=`1px solid ${c.dot}55`;
+    const nameEl=document.createElement('div'); nameEl.className='cat-row-name'; nameEl.textContent=name;
+    const delBtn=document.createElement('button'); delBtn.className='cat-del-btn'; delBtn.innerHTML='✕'; delBtn.disabled=BUILTIN_CATS.has(name); delBtn.onclick=()=>deleteCategory(name);
+    row.append(dot,swatch,nameEl,delBtn); list.appendChild(row);
   });
 }
-
 function updateColorPreview() {
-  const hex = document.getElementById('new-cat-color').value;
-  const preview = document.getElementById('new-cat-preview');
-  preview.style.background = lightenHex(hex, 0.82);
-  preview.textContent = '';
-  const swatch = document.createElement('div');
-  swatch.style.cssText = `width:12px;height:12px;border-radius:50%;background:${hex};`;
-  preview.appendChild(swatch);
+  const hex=document.getElementById('new-cat-color').value; const preview=document.getElementById('new-cat-preview');
+  preview.style.background=lightenHex(hex,0.82); preview.textContent='';
+  const s=document.createElement('div'); s.style.cssText=`width:12px;height:12px;border-radius:50%;background:${hex};`; preview.appendChild(s);
 }
-
 function addCategory() {
-  const name = document.getElementById('new-cat-name').value.trim();
-  if (!name) { showToast('Please enter a category name'); return; }
-  if (CATS[name]) { showToast('Category already exists'); return; }
-  const hex = document.getElementById('new-cat-color').value;
-  CATS[name] = colorFromHex(hex);
-  activeFilters.add(name);
-  saveCustomCats();
-  renderFilters();
-  renderCatList();
-  renderCal();
-  document.getElementById('new-cat-name').value = '';
-  showToast(`Category "${name}" added`);
+  const name=document.getElementById('new-cat-name').value.trim();
+  if(!name){showToast('Please enter a name');return;} if(CATS[name]){showToast('Already exists');return;}
+  const hex=document.getElementById('new-cat-color').value; CATS[name]=colorFromHex(hex); activeFilters.add(name);
+  saveCustomCats(); renderFilters(); renderCatList(); renderCal(); document.getElementById('new-cat-name').value=''; showToast(`"${name}" added`);
 }
-
 function deleteCategory(name) {
-  if (BUILTIN_CATS.has(name)) return;
-  const inUse = events.some(e => e.cat === name);
-  if (inUse) {
-    if (!confirm(`"${name}" is used by some events. Delete it anyway? Those events will keep the category label.`)) return;
-  } else {
-    if (!confirm(`Delete category "${name}"?`)) return;
-  }
-  delete CATS[name];
-  activeFilters.delete(name);
-  saveCustomCats();
-  renderFilters();
-  renderCatList();
-  renderCal();
-  showToast(`Category "${name}" deleted`);
+  if(BUILTIN_CATS.has(name))return;
+  const inUse=events.some(e=>e.cat===name);
+  if(inUse){if(!confirm(`"${name}" is used by some events. Delete anyway?`))return;}else{if(!confirm(`Delete "${name}"?`))return;}
+  delete CATS[name]; activeFilters.delete(name); saveCustomCats(); renderFilters(); renderCatList(); renderCal(); showToast(`"${name}" deleted`);
 }
 
-// ── Day View ──
-let dayViewDate = null;
-const DAY_START = 0;  // 12am
-const DAY_END = 0;   // 12am
-const HOUR_PX = 64;
-const TOTAL_PX = (DAY_END - DAY_START) * HOUR_PX;
-const DAYS_LONG = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-
-function openDayView(ds) {
-  dayViewDate = ds;
-  renderDayView();
-  document.getElementById('dayview-overlay').classList.add('open');
-}
-
+// ════════════════════════════════════════════
+// ── DAY VIEW ──
+// ════════════════════════════════════════════
+function openDayView(ds) { dayViewDate = ds; renderDayView(); document.getElementById('dayview-overlay').classList.add('open'); }
 function shiftDay(dir) {
-  const [y,m,d] = dayViewDate.split('-').map(Number);
-  const dt = new Date(y, m-1, d);
-  dt.setDate(dt.getDate() + dir);
-  dayViewDate = dateStr(dt.getFullYear(), dt.getMonth(), dt.getDate());
-  renderDayView();
+  const [y,m,d]=dayViewDate.split('-').map(Number); const dt=new Date(y,m-1,d); dt.setDate(dt.getDate()+dir);
+  dayViewDate=dateStr(dt.getFullYear(),dt.getMonth(),dt.getDate()); renderDayView();
 }
-
-function dayviewOverlayClick(e) {
-  if (e.target === document.getElementById('dayview-overlay')) closeOverlay('dayview-overlay');
-}
-
-function toMinutes(timeStr) {
-  const [h, m] = timeStr.split(':').map(Number);
-  return h * 60 + m;
-}
+function dayviewOverlayClick(e) { if(e.target===document.getElementById('dayview-overlay'))closeOverlay('dayview-overlay'); }
 
 function renderDayView() {
   const ds = dayViewDate;
   const [y,m,d] = ds.split('-').map(Number);
   const dt = new Date(y, m-1, d);
-  document.getElementById('dayview-title').textContent =
-    `${DAYS_LONG[dt.getDay()]}, ${MONTHS[m-1]} ${d}`;
+  document.getElementById('dayview-title').textContent = `${DAYS_LONG[dt.getDay()]}, ${MONTHS[m-1]} ${d}, ${y}`;
 
-  const allEvs = events.filter(e => {
-    if (!activeFilters.has(e.cat)) return false;
-    return ds >= e.date && ds <= (e.end_date || e.date);
-  });
-
-  const allDayEvs = allEvs.filter(e => e.allDay || (!e.start));
+  const allEvs = events.filter(e => activeFilters.has(e.cat) && ds >= e.date && ds <= (e.end_date || e.date));
+  const allDayEvs = allEvs.filter(e => e.allDay || !e.start);
   const timedEvs  = allEvs.filter(e => !e.allDay && e.start);
 
   // All-day strip
   const strip = document.getElementById('dayview-allday');
   strip.innerHTML = '';
-  if (allDayEvs.length === 0) {
-    strip.innerHTML = '<span style="font-size:11px;color:var(--text3);">No all-day events</span>';
-  }
+  if (allDayEvs.length === 0) strip.innerHTML = '<span style="font-size:11px;color:var(--text3);">No all-day events</span>';
   allDayEvs.forEach(ev => {
-    const c = CATS[ev.cat];
+    const c = CATS[ev.cat] || CATS['Personal'];
     const pill = document.createElement('div');
-    pill.className = 'allday-pill';
-    pill.style.background = c.bg;
-    pill.style.color = c.text;
-    pill.textContent = ev.title;
+    pill.className = 'allday-pill'; pill.style.background=c.bg; pill.style.color=c.text; pill.textContent=ev.title;
     pill.onclick = () => openDetail(ev.id);
     strip.appendChild(pill);
   });
 
-  // Timeline
+  // Build timeline
   const body = document.getElementById('dayview-body');
   body.innerHTML = '';
 
-  const labels = document.createElement('div');
-  labels.className = 'timeline-labels';
-  labels.style.height = TOTAL_PX + 'px';
-  labels.style.position = 'relative';
+  const labelsCol = document.createElement('div');
+  labelsCol.className = 'tl-labels';
+  labelsCol.style.height = TOTAL_PX + 'px';
+  labelsCol.style.position = 'relative';
 
-  const grid = document.createElement('div');
-  grid.className = 'timeline-grid';
-  grid.style.height = TOTAL_PX + 'px';
-  grid.style.position = 'relative';
+  const gridCol = document.createElement('div');
+  gridCol.className = 'tl-grid';
+  gridCol.style.height = TOTAL_PX + 'px';
+  gridCol.style.position = 'relative';
 
-  // Hour lines + labels
-  for (let h = DAY_START; h <= DAY_END; h++) {
-    const top = (h - DAY_START) * HOUR_PX;
+  // Hour and half-hour lines + labels
+  for (let h = 0; h <= 24; h++) {
+    const top = h * HOUR_PX;
+    // Hour line
     const line = document.createElement('div');
-    line.className = 'timeline-line hour';
-    line.style.top = top + 'px';
-    grid.appendChild(line);
-
-    // Half hour line
-    if (h < DAY_END) {
+    line.className = 'tl-line hour'; line.style.top = top + 'px';
+    gridCol.appendChild(line);
+    // Half-hour line
+    if (h < 24) {
       const half = document.createElement('div');
-      half.className = 'timeline-line';
-      half.style.top = (top + HOUR_PX/2) + 'px';
-      grid.appendChild(half);
+      half.className = 'tl-line half'; half.style.top = (top + HOUR_PX/2) + 'px';
+      gridCol.appendChild(half);
     }
-
-    const lbl = document.createElement('div');
-    lbl.className = 'timeline-label';
-    lbl.style.top = top + 'px';
-    const hh = h % 12 || 12;
-    const ampm = h < 12 ? 'a' : 'p';
-    lbl.textContent = `${hh}${ampm}`;
-    labels.appendChild(lbl);
+    // Label
+    if (h < 24) {
+      const lbl = document.createElement('div');
+      lbl.className = 'tl-label'; lbl.style.top = top + 'px';
+      lbl.textContent = h === 0 ? '12a' : h < 12 ? h+'a' : h === 12 ? '12p' : (h-12)+'p';
+      labelsCol.appendChild(lbl);
+    }
   }
 
-  // Current time indicator
+  // Current time line
   const now = new Date();
-  const nowDs = dateStr(now.getFullYear(), now.getMonth(), now.getDate());
-  if (ds === nowDs) {
-    const nowMin = now.getHours() * 60 + now.getMinutes();
-    const startMin = DAY_START * 60;
-    const endMin = DAY_END * 60;
-    if (nowMin >= startMin && nowMin <= endMin) {
-      const nowLine = document.createElement('div');
-      nowLine.className = 'timeline-now';
-      nowLine.style.top = ((nowMin - startMin) / 60 * HOUR_PX) + 'px';
-      grid.appendChild(nowLine);
-    }
+  if (ds === dateStr(now.getFullYear(), now.getMonth(), now.getDate())) {
+    const nowLine = document.createElement('div');
+    nowLine.className = 'tl-now';
+    nowLine.style.top = (now.getHours()*60 + now.getMinutes()) / 60 * HOUR_PX + 'px';
+    gridCol.appendChild(nowLine);
   }
 
-  // Timed events — handle overlaps
-  const sorted = [...timedEvs].sort((a,b) => toMinutes(a.start) - toMinutes(b.start));
-  const columns = [];
-  sorted.forEach(ev => {
-    const startMin = toMinutes(ev.start);
-    const endMin = ev.end ? toMinutes(ev.end) : startMin + 60;
-    let col = 0;
-    while (columns[col] && columns[col] > startMin) col++;
-    columns[col] = endMin;
-    const totalCols = Math.max(...columns.map((_,i) => i)) + 1;
+  // Layout timed events with overlap handling
+  const sorted = [...timedEvs].sort((a,b) => timeToMins(a.start) - timeToMins(b.start));
+  // Cluster-based column layout
+  const placed = sorted.map(ev => {
+    const s = timeToMins(ev.start);
+    const e2 = ev.end ? timeToMins(ev.end) : s + 60;
+    return { ev, s, e: e2, col: 0, totalCols: 1 };
+  });
+  // Assign columns
+  for (let i = 0; i < placed.length; i++) {
+    const usedCols = placed.slice(0,i).filter(p => p.e > placed[i].s && p.s < placed[i].e).map(p => p.col);
+    let col = 0; while (usedCols.includes(col)) col++;
+    placed[i].col = col;
+  }
+  // Find totalCols for each
+  for (let i = 0; i < placed.length; i++) {
+    const overlapping = placed.filter(p => p.e > placed[i].s && p.s < placed[i].e);
+    placed[i].totalCols = Math.max(...overlapping.map(p => p.col)) + 1;
+  }
 
-    const top = Math.max(0, (startMin - DAY_START * 60) / 60 * HOUR_PX);
-    const height = Math.max(22, (endMin - startMin) / 60 * HOUR_PX - 3);
-    const c = CATS[ev.cat];
+  placed.forEach(({ ev, s, e: eMin, col, totalCols }) => {
+    const c = CATS[ev.cat] || CATS['Personal'];
+    const topPx  = s / 60 * HOUR_PX;
+    const heightPx = Math.max(24, (eMin - s) / 60 * HOUR_PX - 2);
+    const colW = 94 / totalCols;
 
     const el = document.createElement('div');
-    el.className = 'timeline-event';
-    el.style.background = c.bg;
-    el.style.color = c.text;
-    el.style.top = top + 'px';
-    el.style.height = height + 'px';
-    el.style.left = (4 + col * (96 / totalCols)) + '%';
-    el.style.right = ((totalCols - col - 1) * (96 / totalCols)) + '%';
-    el.innerHTML = `<div style="font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${ev.title}</div>
-      <div class="ev-time">${fmtTime(ev.start)}${ev.end ? ' – '+fmtTime(ev.end):''}</div>`;
-    el.onclick = () => openDetail(ev.id);
-    grid.appendChild(el);
+    el.className = 'tl-event';
+    el.style.cssText = `background:${c.bg};color:${c.text};top:${topPx}px;height:${heightPx}px;left:${3 + col*colW}%;width:${colW - 1}%;`;
+    el.dataset.evId = ev.id;
+
+    el.innerHTML = `
+      <div class="tl-resize-top" data-role="resize-top"></div>
+      <div class="tl-title">${ev.title}</div>
+      <div class="tl-time">${fmtTime(ev.start)}${ev.end?' – '+fmtTime(ev.end):''}</div>
+      <div class="tl-resize-handle" data-role="resize-bottom"></div>
+    `;
+
+    // Click to open detail (only if not dragging)
+    el.addEventListener('click', e => {
+      if (el.classList.contains('dragging') || wasDragging) return;
+      e.stopPropagation();
+      openDetail(ev.id);
+    });
+
+    attachDragHandlers(el, ev.id, gridCol);
+    gridCol.appendChild(el);
   });
 
-  body.appendChild(labels);
-  body.appendChild(grid);
+  // Double-click on grid to add event
+  let lastClickTime = 0;
+  gridCol.addEventListener('click', e => {
+    if (e.target !== gridCol && !e.target.classList.contains('tl-line')) return;
+    const now2 = Date.now();
+    if (now2 - lastClickTime < 350) {
+      // double-click
+      const rect = gridCol.getBoundingClientRect();
+      const y2 = e.clientY - rect.top + body.scrollTop;
+      const clickedMins = snapMins(y2 / HOUR_PX * 60, 15);
+      const startMins = Math.max(0, Math.min(clickedMins, 23*60));
+      const endMins   = Math.min(startMins + 60, 24*60);
+      openAdd(dayViewDate, minsToTime(startMins), minsToTime(endMins));
+      lastClickTime = 0;
+    } else {
+      lastClickTime = now2;
+    }
+  });
 
-  // Scroll to first event or 8am
-  const firstMin = timedEvs.length
-    ? Math.min(...timedEvs.map(e => toMinutes(e.start)))
-    : 8 * 60;
-  const scrollTo = Math.max(0, (firstMin - DAY_START * 60 - 30) / 60 * HOUR_PX);
-  setTimeout(() => body.scrollTop = scrollTo, 50);
+  body.appendChild(labelsCol);
+  body.appendChild(gridCol);
+
+  // Scroll to first event or 7am
+  const firstMin = timedEvs.length ? Math.min(...timedEvs.map(e => timeToMins(e.start))) : 7*60;
+  setTimeout(() => { body.scrollTop = Math.max(0, (firstMin/60 - 0.5) * HOUR_PX); }, 50);
+}
+
+// ── Drag: move + resize ──
+let wasDragging = false;
+
+function attachDragHandlers(el, evId, gridCol) {
+  const body = document.getElementById('dayview-body');
+
+  function getEvIndex() { return events.findIndex(e => e.id === evId); }
+
+  function startDrag(e, mode) {
+    // mode: 'move' | 'resize-bottom' | 'resize-top'
+    e.preventDefault();
+    e.stopPropagation();
+    wasDragging = false;
+
+    const isTouch = e.type === 'touchstart';
+    const clientY0 = isTouch ? e.touches[0].clientY : e.clientY;
+    const scrollTop0 = body.scrollTop;
+    const rect0 = gridCol.getBoundingClientRect();
+
+    const evIdx = getEvIndex();
+    if (evIdx < 0) return;
+    const ev = events[evIdx];
+    const startMins0 = timeToMins(ev.start);
+    const endMins0   = ev.end ? timeToMins(ev.end) : startMins0 + 60;
+    const duration   = endMins0 - startMins0;
+
+    el.classList.add('dragging');
+    el.style.transition = 'none';
+
+    function onMove(e2) {
+      const clientY2 = e2.type === 'touchmove' ? e2.touches[0].clientY : e2.clientY;
+      const scrollDiff = body.scrollTop - scrollTop0;
+      const dy = clientY2 - clientY0 + scrollDiff;
+      if (Math.abs(dy) > 3) wasDragging = true;
+      const deltaMins = snapMins(dy / HOUR_PX * 60, 15);
+
+      const idx2 = getEvIndex();
+      if (idx2 < 0) return;
+
+      if (mode === 'move') {
+        let newStart = Math.max(0, Math.min(startMins0 + deltaMins, 24*60 - duration));
+        let newEnd   = newStart + duration;
+        events[idx2] = { ...events[idx2], start: minsToTime(newStart), end: minsToTime(newEnd) };
+      } else if (mode === 'resize-bottom') {
+        let newEnd = Math.max(startMins0 + 15, Math.min(endMins0 + deltaMins, 24*60));
+        events[idx2] = { ...events[idx2], end: minsToTime(newEnd) };
+      } else if (mode === 'resize-top') {
+        let newStart = Math.max(0, Math.min(startMins0 + deltaMins, endMins0 - 15));
+        events[idx2] = { ...events[idx2], start: minsToTime(newStart) };
+      }
+
+      // Live visual update
+      const ev2 = events[idx2];
+      const s2 = timeToMins(ev2.start);
+      const e2min = ev2.end ? timeToMins(ev2.end) : s2+60;
+      el.style.top    = (s2/60*HOUR_PX) + 'px';
+      el.style.height = Math.max(24, (e2min-s2)/60*HOUR_PX - 2) + 'px';
+      el.querySelector('.tl-time').textContent = fmtTime(ev2.start)+(ev2.end?' – '+fmtTime(ev2.end):'');
+    }
+
+    function onUp() {
+      el.classList.remove('dragging');
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onUp);
+      if (wasDragging) { save(); renderCal(); }
+      setTimeout(() => { wasDragging = false; }, 50);
+    }
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('touchend', onUp);
+  }
+
+  // Move: drag on main body (not handles)
+  el.addEventListener('mousedown', e => {
+    if (e.target.dataset.role) return; // handled by handles
+    startDrag(e, 'move');
+  });
+  el.addEventListener('touchstart', e => {
+    if (e.target.dataset.role) return;
+    startDrag(e, 'move');
+  }, { passive: false });
+
+  // Resize bottom
+  const bottomHandle = el.querySelector('[data-role="resize-bottom"]');
+  bottomHandle.addEventListener('mousedown', e => { e.stopPropagation(); startDrag(e, 'resize-bottom'); });
+  bottomHandle.addEventListener('touchstart', e => { e.stopPropagation(); startDrag(e, 'resize-bottom'); }, { passive: false });
+
+  // Resize top
+  const topHandle = el.querySelector('[data-role="resize-top"]');
+  topHandle.addEventListener('mousedown', e => { e.stopPropagation(); startDrag(e, 'resize-top'); });
+  topHandle.addEventListener('touchstart', e => { e.stopPropagation(); startDrag(e, 'resize-top'); }, { passive: false });
 }
 
 // ── Utils ──
 function closeOverlay(id) { document.getElementById(id).classList.remove('open'); }
-function overlayClick(e, id) { if (e.target === document.getElementById(id)) closeOverlay(id); }
-
+function overlayClick(e, id) { if(e.target===document.getElementById(id))closeOverlay(id); }
 let toastTimer;
 function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
 }
 
 // ── Init ──
-const t = new Date();
-curMonth = t.getMonth(); curYear = t.getFullYear();
+loadCustomCats();
+const _t = new Date(); curMonth = _t.getMonth(); curYear = _t.getFullYear();
 renderFilters();
 loadEvents().then(() => renderCal());
 </script>
