@@ -645,7 +645,10 @@ function renderDayView(){
     const rect=gridCol.getBoundingClientRect();
     // e.clientY is viewport-relative; rect.top is viewport-relative top of gridCol.
     // body.scrollTop accounts for any scroll within the day-view-body container.
-    const yInGrid=e.clientY-rect.top+body.scrollTop-(day-view-header+day-view-title+day-view-nav);
+    const headerHeight = document.querySelector(".day-view-header")?.offsetHeight ?? 0;
+    const titleHeight = document.querySelector(".day-view-title")?.offsetHeight ?? 0;
+    const navHeight = document.querySelector(".day-view-nav")?.offsetHeight ?? 0;
+    const yInGrid=e.clientY-rect.top+body.scrollTop-(headerHeight+titieHeight+navHeight);
     const clickedMins=snapMins(yInGrid/HOUR_PX*60,15);
     const startMins=Math.max(0,Math.min(clickedMins,23*60));
     const endMins=Math.min(startMins+60,24*60);
