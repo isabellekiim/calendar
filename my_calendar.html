@@ -13,8 +13,6 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-  /* TOP BAR */
   .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
   .topbar-left { display: flex; align-items: center; gap: 16px; }
   .app-name { font-size: 17px; font-weight: 500; letter-spacing: -0.3px; }
@@ -26,8 +24,6 @@
   .today-btn:hover { background: var(--surface2); }
   .add-btn { font-size: 13px; padding: 7px 16px; border: none; border-radius: 99px; background: var(--text); color: #fff; cursor: pointer; font-family: inherit; font-weight: 500; transition: opacity 0.15s; }
   .add-btn:hover { opacity: 0.85; }
-
-  /* FILTER BAR */
   .filter-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 24px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
   .filter-label { font-size: 11px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px; }
   .chip { font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 99px; border: 1.5px solid transparent; cursor: pointer; transition: opacity 0.15s, transform 0.1s; user-select: none; }
@@ -35,8 +31,6 @@
   .chip:active { transform: scale(0.96); }
   .manage-cats-btn { font-size: 11px; padding: 4px 10px; border-radius: 99px; border: 1.5px dashed var(--border); background: transparent; color: var(--text3); cursor: pointer; font-family: inherit; font-weight: 500; transition: background 0.15s, color 0.15s; margin-left: 4px; }
   .manage-cats-btn:hover { background: var(--surface2); color: var(--text2); }
-
-  /* CALENDAR GRID */
   .cal-wrap { padding: 20px 24px; }
   .day-headers { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 3px; margin-bottom: 3px; }
   .day-header { text-align: center; font-size: 11px; font-weight: 500; color: var(--text3); padding: 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -61,7 +55,6 @@
   @media (min-width: 600px) { .day-view { border-radius: var(--radius); max-height: 85vh; } }
   .day-view-header { padding: 14px 18px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
   .day-view-title { font-size: 15px; font-weight: 500; }
-  .day-view-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
   .day-view-nav { display: flex; gap: 6px; align-items: center; }
   .allday-strip { padding: 7px 16px 7px 60px; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 5px; flex-shrink: 0; min-height: 34px; align-items: center; }
   .allday-pill { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 99px; cursor: pointer; transition: filter 0.1s; }
@@ -71,40 +64,20 @@
 
   /* TIMELINE */
   .tl-labels { width: 52px; flex-shrink: 0; position: relative; }
-  .tl-label { position: absolute; right: 8px; font-size: 10px; color: var(--text3); font-family: 'DM Mono', monospace; white-space: nowrap; transform: translateY(-50%); }
+  .tl-label { position: absolute; right: 8px; font-size: 10px; color: var(--text3); font-family: 'DM Mono', monospace; white-space: nowrap; transform: translateY(-50%); pointer-events: none; }
   .tl-grid { flex: 1; position: relative; border-left: 1px solid var(--border); }
   .tl-line { position: absolute; left: 0; right: 0; pointer-events: none; }
   .tl-line.hour { border-top: 1px solid var(--border); }
   .tl-line.half { border-top: 1px dashed var(--border); opacity: 0.5; }
   .tl-now { position: absolute; left: 0; right: 0; border-top: 2px solid #d95fa0; z-index: 10; pointer-events: none; }
   .tl-now::before { content: ''; position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%; background: #d95fa0; }
-
-  /* TIMELINE EVENTS */
-  .tl-event {
-    position: absolute;
-    border-radius: 5px;
-    padding: 4px 7px 14px;
-    font-size: 11px; font-weight: 500;
-    cursor: grab;
-    overflow: hidden;
-    z-index: 3;
-    line-height: 1.4;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    transition: box-shadow 0.15s;
-    touch-action: none;
-  }
+  .tl-event { position: absolute; border-radius: 5px; padding: 4px 7px 14px; font-size: 11px; font-weight: 500; cursor: grab; overflow: hidden; z-index: 3; line-height: 1.4; box-shadow: 0 1px 4px rgba(0,0,0,0.1); touch-action: none; }
   .tl-event.dragging { cursor: grabbing; box-shadow: 0 4px 16px rgba(0,0,0,0.18); opacity: 0.92; z-index: 20; }
   .tl-event .tl-time { font-size: 10px; opacity: 0.75; font-family: 'DM Mono', monospace; }
   .tl-event .tl-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .tl-resize-handle {
-    position: absolute; bottom: 0; left: 0; right: 0; height: 10px;
-    cursor: ns-resize; display: flex; align-items: center; justify-content: center;
-  }
+  .tl-resize-handle { position: absolute; bottom: 0; left: 0; right: 0; height: 10px; cursor: ns-resize; display: flex; align-items: center; justify-content: center; }
   .tl-resize-handle::after { content: ''; width: 24px; height: 2px; border-radius: 99px; background: currentColor; opacity: 0.3; }
-  .tl-resize-top {
-    position: absolute; top: 0; left: 0; right: 0; height: 8px;
-    cursor: ns-resize;
-  }
+  .tl-resize-top { position: absolute; top: 0; left: 0; right: 0; height: 8px; cursor: ns-resize; }
 
   /* MODAL */
   .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
@@ -135,8 +108,6 @@
   .btn-del2:hover { background: #fee2e2; }
   .import-btn { font-size: 12px; padding: 6px 14px; border: 1px solid var(--border); border-radius: 99px; background: transparent; cursor: pointer; color: var(--text2); font-family: inherit; transition: background 0.15s; }
   .import-btn:hover { background: var(--surface2); }
-
-  /* MANAGE CATEGORIES */
   .cat-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; max-height: 260px; overflow-y: auto; }
   .cat-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); }
   .cat-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
@@ -155,11 +126,8 @@
   .color-picker-wrap input[type="color"] { position: absolute; opacity: 0; width: 34px; height: 34px; top: 0; left: 0; cursor: pointer; padding: 0; border: none; }
   .btn-add-cat { padding: 7px 14px; border: none; border-radius: 99px; background: var(--text); color: #fff; cursor: pointer; font-size: 12px; font-family: inherit; font-weight: 500; white-space: nowrap; }
   .btn-add-cat:hover { opacity: 0.85; }
-
-  /* TOAST */
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--text); color: #fff; padding: 10px 20px; border-radius: 99px; font-size: 13px; z-index: 999; opacity: 0; transition: all 0.3s; pointer-events: none; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
   @media (max-width: 500px) {
     .topbar { padding: 10px 14px; flex-wrap: wrap; gap: 8px; }
     .cal-wrap { padding: 12px 10px; }
@@ -171,7 +139,6 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-left">
     <div class="app-name">My Calendar</div>
@@ -190,14 +157,12 @@
   </div>
 </div>
 
-<!-- FILTER BAR -->
 <div class="filter-bar">
   <span class="filter-label">Show</span>
   <div id="filter-chips"></div>
   <button class="manage-cats-btn" onclick="openManageCats()">⊕ Manage categories</button>
 </div>
 
-<!-- CALENDAR -->
 <div class="cal-wrap">
   <div class="day-headers">
     <div class="day-header">Sun</div><div class="day-header">Mon</div>
@@ -208,7 +173,6 @@
   <div class="cal-grid" id="cal-grid"></div>
 </div>
 
-<!-- ADD / EDIT MODAL -->
 <div class="overlay" id="form-overlay" onclick="overlayClick(event,'form-overlay')">
   <div class="modal">
     <div class="modal-close" onclick="closeOverlay('form-overlay')">✕</div>
@@ -234,7 +198,6 @@
   </div>
 </div>
 
-<!-- DETAIL MODAL -->
 <div class="overlay" id="detail-overlay" onclick="overlayClick(event,'detail-overlay')">
   <div class="modal">
     <div class="modal-close" onclick="closeOverlay('detail-overlay')">✕</div>
@@ -250,12 +213,11 @@
   </div>
 </div>
 
-<!-- IMPORT MODAL -->
 <div class="overlay" id="import-overlay" onclick="overlayClick(event,'import-overlay')">
   <div class="modal">
     <div class="modal-close" onclick="closeOverlay('import-overlay')">✕</div>
     <h2>Import events from Claude</h2>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Paste a JSON export from another device (or from Claude) below. Events with matching IDs will be updated; new ones will be added. Existing events are never deleted.</p>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Paste a JSON export from another device (or from Claude) below. Events with matching IDs will be updated; new ones will be added.</p>
     <div class="field"><label>Paste JSON here</label><textarea id="import-json" style="min-height:140px;font-family:'DM Mono',monospace;font-size:12px;" placeholder='[{"id":999,"title":"New Event","cat":"Personal","date":"2026-08-01","allDay":true}]'></textarea></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeOverlay('import-overlay')">Cancel</button>
@@ -264,7 +226,6 @@
   </div>
 </div>
 
-<!-- MANAGE CATEGORIES MODAL -->
 <div class="overlay" id="cats-overlay" onclick="overlayClick(event,'cats-overlay')">
   <div class="modal" style="max-width:480px;">
     <div class="modal-close" onclick="closeOverlay('cats-overlay')">✕</div>
@@ -280,18 +241,15 @@
         </div>
         <button class="btn-add-cat" onclick="addCategory()">Add</button>
       </div>
-      <p style="font-size:11px;color:var(--text3);margin-top:8px;">Pick a color — light/pastel tones work best for chips.</p>
+      <p style="font-size:11px;color:var(--text3);margin-top:8px;">Pick a color — light/pastel tones work best.</p>
     </div>
   </div>
 </div>
 
-<!-- DAY VIEW -->
 <div class="day-view-overlay" id="dayview-overlay" onclick="dayviewOverlayClick(event)">
   <div class="day-view">
     <div class="day-view-header">
-      <div>
-        <div class="day-view-title" id="dayview-title"></div>
-      </div>
+      <div><div class="day-view-title" id="dayview-title"></div></div>
       <div class="day-view-nav">
         <button class="nav-btn" onclick="shiftDay(-1)">&#8592;</button>
         <button class="today-btn" onclick="openDayView(today())">Today</button>
@@ -300,7 +258,7 @@
       </div>
     </div>
     <div class="allday-strip" id="dayview-allday"></div>
-    <div class="day-view-hint">Double-tap any time slot to add an event · Drag event to move · Drag bottom edge to resize</div>
+    <div class="day-view-hint">Double-tap any empty slot to add · Drag to move · Drag bottom/top edge to resize</div>
     <div class="day-view-body" id="dayview-body"></div>
   </div>
 </div>
@@ -308,9 +266,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Built-in categories ──
 const BUILTIN_CATS = new Set(["HMCHS Intern","BCH Program","Anniversaries","Volleyball","Personal","School","Starbucks","BMC Volunteer","Truly's"]);
-
 let CATS = {
   "HMCHS Intern":  { bg:"#ede9ff", text:"#3a2fa0", dot:"#7c72e0" },
   "BCH Program":   { bg:"#d8f5eb", text:"#0d6644", dot:"#22a372" },
@@ -322,21 +278,14 @@ let CATS = {
   "BMC Volunteer": { bg:"#ece9e4", text:"#3d3730", dot:"#8a7e74" },
   "Truly's":       { bg:"#c2fcf4", text:"#303d3b", dot:"#4b7a74" },
 };
+function hexToRgb(h){return{r:parseInt(h.slice(1,3),16),g:parseInt(h.slice(3,5),16),b:parseInt(h.slice(5,7),16)};}
+function lightenHex(h,f=0.75){const {r,g,b}=hexToRgb(h);const lr=Math.round(r+(255-r)*f),lg=Math.round(g+(255-g)*f),lb=Math.round(b+(255-b)*f);return`#${lr.toString(16).padStart(2,'0')}${lg.toString(16).padStart(2,'0')}${lb.toString(16).padStart(2,'0')}`;}
+function darkenHex(h,f=0.5){const {r,g,b}=hexToRgb(h);return`#${Math.round(r*f).toString(16).padStart(2,'0')}${Math.round(g*f).toString(16).padStart(2,'0')}${Math.round(b*f).toString(16).padStart(2,'0')}`;}
+function colorFromHex(h){return{bg:lightenHex(h,0.82),text:darkenHex(h,0.55),dot:h};}
+function loadCustomCats(){try{const s=JSON.parse(localStorage.getItem('cal_custom_cats')||'[]');s.forEach(({name,hex})=>{CATS[name]=colorFromHex(hex);});}catch(e){}}
+function saveCustomCats(){const c=Object.keys(CATS).filter(k=>!BUILTIN_CATS.has(k)).map(k=>({name:k,hex:CATS[k].dot}));localStorage.setItem('cal_custom_cats',JSON.stringify(c));}
 
-function hexToRgb(hex) { return { r:parseInt(hex.slice(1,3),16), g:parseInt(hex.slice(3,5),16), b:parseInt(hex.slice(5,7),16) }; }
-function lightenHex(hex, f=0.75) { const {r,g,b}=hexToRgb(hex); const lr=Math.round(r+(255-r)*f),lg=Math.round(g+(255-g)*f),lb=Math.round(b+(255-b)*f); return `#${lr.toString(16).padStart(2,'0')}${lg.toString(16).padStart(2,'0')}${lb.toString(16).padStart(2,'0')}`; }
-function darkenHex(hex, f=0.5) { const {r,g,b}=hexToRgb(hex); return `#${Math.round(r*f).toString(16).padStart(2,'0')}${Math.round(g*f).toString(16).padStart(2,'0')}${Math.round(b*f).toString(16).padStart(2,'0')}`; }
-function colorFromHex(hex) { return { bg:lightenHex(hex,0.82), text:darkenHex(hex,0.55), dot:hex }; }
-
-function loadCustomCats() {
-  try { const s=JSON.parse(localStorage.getItem('cal_custom_cats')||'[]'); s.forEach(({name,hex})=>{ CATS[name]=colorFromHex(hex); }); } catch(e) {}
-}
-function saveCustomCats() {
-  const custom=Object.keys(CATS).filter(k=>!BUILTIN_CATS.has(k)).map(k=>({name:k,hex:CATS[k].dot}));
-  localStorage.setItem('cal_custom_cats',JSON.stringify(custom));
-}
-
-const SEED = [
+const SEED=[
   {id:1,title:"Highrock Internship Meeting",cat:"HMCHS Intern",date:"2026-04-28",start:"20:00",end:"21:00"},
   {id:2,title:"Worship Team Rehearsal 1",cat:"HMCHS Intern",date:"2026-05-09",start:"10:00",end:"12:00"},
   {id:3,title:"MS Service Trip Leader Meeting",cat:"HMCHS Intern",date:"2026-05-26",start:"20:15",end:"21:00"},
@@ -437,569 +386,341 @@ const SEED = [
   {id:214,title:"Boston UVC Practice",cat:"Volleyball",date:"2026-06-20",start:"18:30",end:"20:00"},
 ];
 
-// ── Config ──
-const JSONBIN_BIN = '69f15490856a68218984a936';
-const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
-function getKey() { return '$2a$10$8z2NImHSB1PpMqxiae6CNeP5l5dVyA3JGZGxkAXu.nmuXWN8rzX5a'; }
-function saveKey(k) {}
+// Config
+const JSONBIN_BIN='69f15490856a68218984a936';
+const JSONBIN_URL=`https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
+function getKey(){return '$2a$10$yJIEm2swzxDnGie20FO.XuBnruEpDV5SrvP7t2C6vT91yDoxpJwDS';}
+function saveKey(k){}
 
-// ── Timeline constants ──
-const DAY_START = 0;   // midnight
-const DAY_END   = 24;  // midnight next day
-const HOUR_PX   = 64;
-const TOTAL_PX  = DAY_END * HOUR_PX; // 1536px
+// Timeline constants — full 24 hours
+const HOUR_PX = 64;
+const TOTAL_PX = 24 * HOUR_PX; // 1536px
 
-// ── State ──
-let events = [];
-let activeFilters = new Set(Object.keys(CATS));
-let curMonth = new Date().getMonth();
-let curYear  = new Date().getFullYear();
-let editingId = null;
-let detailId  = null;
-let nextId    = 1000;
-let saveTimer = null;
-let dayViewDate = null;
+// State
+let events=[],activeFilters=new Set(Object.keys(CATS)),curMonth=new Date().getMonth(),curYear=new Date().getFullYear();
+let editingId=null,detailId=null,nextId=1000,saveTimer=null,dayViewDate=null,wasDragging=false;
 
-// ── Sync ──
-function showStatus(msg, color) {
-  const el = document.getElementById('sync-status');
-  if (!el) return;
-  el.textContent = msg;
-  el.style.color = color || 'var(--text3)';
-}
-async function loadEvents() {
-  const key = getKey();
+// Sync
+function showStatus(msg,color){const el=document.getElementById('sync-status');if(!el)return;el.textContent=msg;el.style.color=color||'var(--text3)';}
+async function loadEvents(){
   showStatus('Loading…');
-  try {
-    const res = await fetch(JSONBIN_URL + '/latest', { headers: { 'X-Master-Key': key } });
-    if (!res.ok) throw new Error();
-    const data = await res.json();
-    const stored = data.record;
-    if (Array.isArray(stored) && stored.length > 0 && !stored[0].init) {
-      events = stored;
-    } else {
-      events = JSON.parse(JSON.stringify(SEED));
-      await pushToCloud();
-    }
-    nextId = Math.max(...events.map(e => e.id), 999) + 1;
-    showStatus('Synced ✓', '#22a372');
-    setTimeout(() => showStatus(''), 2500);
-  } catch(e) {
-    showStatus('Offline — using local backup', '#e09020');
-    const local = localStorage.getItem('cal_events_backup');
-    events = local ? JSON.parse(local) : JSON.parse(JSON.stringify(SEED));
-    nextId = Math.max(...events.map(e => e.id), 999) + 1;
+  try{
+    const res=await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':getKey()}});
+    if(!res.ok)throw new Error();
+    const data=await res.json(),stored=data.record;
+    if(Array.isArray(stored)&&stored.length>0&&!stored[0].init){events=stored;}
+    else{events=JSON.parse(JSON.stringify(SEED));await pushToCloud();}
+    nextId=Math.max(...events.map(e=>e.id),999)+1;
+    showStatus('Synced ✓','#22a372');setTimeout(()=>showStatus(''),2500);
+  }catch(e){
+    showStatus('Offline — using local backup','#e09020');
+    const local=localStorage.getItem('cal_events_backup');
+    events=local?JSON.parse(local):JSON.parse(JSON.stringify(SEED));
+    nextId=Math.max(...events.map(e=>e.id),999)+1;
   }
 }
-async function pushToCloud() {
-  const key = getKey();
-  if (!key) return;
-  try {
-    await fetch(JSONBIN_URL, { method:'PUT', headers:{'Content-Type':'application/json','X-Master-Key':key}, body:JSON.stringify(events) });
-    localStorage.setItem('cal_events_backup', JSON.stringify(events));
-    showStatus('Saved ✓', '#22a372');
-    setTimeout(() => showStatus(''), 2000);
-  } catch(e) {
-    localStorage.setItem('cal_events_backup', JSON.stringify(events));
-    showStatus('Saved locally (offline)', '#e09020');
-  }
+async function pushToCloud(){
+  try{
+    await fetch(JSONBIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':getKey()},body:JSON.stringify(events)});
+    localStorage.setItem('cal_events_backup',JSON.stringify(events));
+    showStatus('Saved ✓','#22a372');setTimeout(()=>showStatus(''),2000);
+  }catch(e){localStorage.setItem('cal_events_backup',JSON.stringify(events));showStatus('Saved locally (offline)','#e09020');}
 }
-function save() {
-  showStatus('Saving…');
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(pushToCloud, 800);
-}
+function save(){showStatus('Saving…');clearTimeout(saveTimer);saveTimer=setTimeout(pushToCloud,800);}
 
-// ── Helpers ──
-function fmt(ds) { const [y,m,d]=ds.split('-'); return new Date(+y,+m-1,+d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
-function fmtTime(t) { if(!t)return''; const [h,m]=t.split(':'); const hh=+h; return `${hh%12||12}:${m} ${hh>=12?'PM':'AM'}`; }
-function pad(n) { return String(n).padStart(2,'0'); }
-function dateStr(y,m,d) { return `${y}-${pad(m+1)}-${pad(d)}`; }
-function today() { const t=new Date(); return dateStr(t.getFullYear(),t.getMonth(),t.getDate()); }
-function minsToTime(mins) { const h=Math.floor(mins/60)%24; const m=mins%60; return `${pad(h)}:${pad(m)}`; }
-function timeToMins(t) { const [h,m]=t.split(':').map(Number); return h*60+m; }
-function snapMins(mins, snap=15) { return Math.round(mins/snap)*snap; }
+// Helpers
+function fmt(ds){const[y,m,d]=ds.split('-');return new Date(+y,+m-1,+d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
+function fmtTime(t){if(!t)return'';const[h,m]=t.split(':');const hh=+h;return`${hh%12||12}:${m} ${hh>=12?'PM':'AM'}`;}
+function pad(n){return String(n).padStart(2,'0');}
+function dateStr(y,m,d){return`${y}-${pad(m+1)}-${pad(d)}`;}
+function today(){const t=new Date();return dateStr(t.getFullYear(),t.getMonth(),t.getDate());}
+function minsToTime(mins){const h=Math.floor(mins/60)%24,m=mins%60;return`${pad(h)}:${pad(m)}`;}
+function timeToMins(t){const[h,m]=t.split(':').map(Number);return h*60+m;}
+function snapMins(mins,snap=15){return Math.round(mins/snap)*snap;}
+function getEventsForDate(ds){return events.filter(e=>activeFilters.has(e.cat)&&ds>=e.date&&ds<=(e.end_date||e.date));}
+function populateCatSelect(id,val){const sel=document.getElementById(id);if(!sel)return;sel.innerHTML='';Object.keys(CATS).forEach(cat=>{const o=document.createElement('option');o.value=o.textContent=cat;sel.appendChild(o);});if(val&&CATS[val])sel.value=val;}
 
-function getEventsForDate(ds) {
-  return events.filter(e => {
-    if (!activeFilters.has(e.cat)) return false;
-    return ds >= e.date && ds <= (e.end_date || e.date);
-  });
-}
-
-function populateCatSelect(id, val) {
-  const sel = document.getElementById(id);
-  if (!sel) return;
-  sel.innerHTML = '';
-  Object.keys(CATS).forEach(cat => {
-    const o = document.createElement('option');
-    o.value = o.textContent = cat;
-    sel.appendChild(o);
-  });
-  if (val && CATS[val]) sel.value = val;
-}
-
-// ── Filters ──
-function renderFilters() {
-  const wrap = document.getElementById('filter-chips');
-  wrap.innerHTML = '';
-  wrap.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;';
-  Object.entries(CATS).forEach(([cat, c]) => {
-    const btn = document.createElement('button');
-    btn.className = 'chip' + (activeFilters.has(cat) ? '' : ' off');
-    btn.style.background = c.bg; btn.style.color = c.text; btn.style.borderColor = c.dot+'55';
-    btn.textContent = cat;
-    btn.onclick = () => { if(activeFilters.has(cat))activeFilters.delete(cat); else activeFilters.add(cat); btn.classList.toggle('off'); renderCal(); };
+// Filters
+function renderFilters(){
+  const wrap=document.getElementById('filter-chips');wrap.innerHTML='';wrap.style.cssText='display:flex;gap:6px;flex-wrap:wrap;';
+  Object.entries(CATS).forEach(([cat,c])=>{
+    const btn=document.createElement('button');btn.className='chip'+(activeFilters.has(cat)?'':' off');
+    btn.style.background=c.bg;btn.style.color=c.text;btn.style.borderColor=c.dot+'55';btn.textContent=cat;
+    btn.onclick=()=>{if(activeFilters.has(cat))activeFilters.delete(cat);else activeFilters.add(cat);btn.classList.toggle('off');renderCal();};
     wrap.appendChild(btn);
   });
 }
 
-// ── Calendar ──
-const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-const DAYS_LONG = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+// Calendar
+const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const DAYS_LONG=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
-function renderCal() {
-  document.getElementById('month-title').textContent = `${MONTHS[curMonth]} ${curYear}`;
-  const grid = document.getElementById('cal-grid');
-  grid.innerHTML = '';
-  const firstDay = new Date(curYear, curMonth, 1).getDay();
-  const daysInMonth = new Date(curYear, curMonth+1, 0).getDate();
-  const td = today();
-
-  for (let i = 0; i < firstDay; i++) {
-    const cell = document.createElement('div'); cell.className = 'day-cell other'; grid.appendChild(cell);
-  }
-  for (let d = 1; d <= daysInMonth; d++) {
-    const ds = dateStr(curYear, curMonth, d);
-    const cell = document.createElement('div');
-    cell.className = 'day-cell' + (ds === td ? ' today' : '');
-    const num = document.createElement('div');
-    num.className = 'day-num' + (ds === td ? ' today-num' : '');
-    num.textContent = d; cell.appendChild(num);
-    const dayEvs = getEventsForDate(ds);
-    dayEvs.slice(0,3).forEach(ev => {
-      const c = CATS[ev.cat] || CATS['Personal'];
-      const chip = document.createElement('div');
-      chip.className = 'event-chip'; chip.style.background=c.bg; chip.style.color=c.text; chip.textContent=ev.title;
-      chip.onclick = e => { e.stopPropagation(); openDetail(ev.id); };
-      cell.appendChild(chip);
+function renderCal(){
+  document.getElementById('month-title').textContent=`${MONTHS[curMonth]} ${curYear}`;
+  const grid=document.getElementById('cal-grid');grid.innerHTML='';
+  const firstDay=new Date(curYear,curMonth,1).getDay(),daysInMonth=new Date(curYear,curMonth+1,0).getDate(),td=today();
+  for(let i=0;i<firstDay;i++){const c=document.createElement('div');c.className='day-cell other';grid.appendChild(c);}
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=dateStr(curYear,curMonth,d),cell=document.createElement('div');
+    cell.className='day-cell'+(ds===td?' today':'');
+    const num=document.createElement('div');num.className='day-num'+(ds===td?' today-num':'');num.textContent=d;cell.appendChild(num);
+    const dayEvs=getEventsForDate(ds);
+    dayEvs.slice(0,3).forEach(ev=>{
+      const c=CATS[ev.cat]||CATS['Personal'],chip=document.createElement('div');
+      chip.className='event-chip';chip.style.background=c.bg;chip.style.color=c.text;chip.textContent=ev.title;
+      chip.onclick=e=>{e.stopPropagation();openDetail(ev.id);};cell.appendChild(chip);
     });
-    if (dayEvs.length > 3) {
-      const more = document.createElement('div'); more.className='more-chip'; more.textContent=`+${dayEvs.length-3} more`;
-      more.onclick = e => { e.stopPropagation(); openDayView(ds); }; cell.appendChild(more);
-    }
-    cell.onclick = () => openDayView(ds);
-    grid.appendChild(cell);
+    if(dayEvs.length>3){const more=document.createElement('div');more.className='more-chip';more.textContent=`+${dayEvs.length-3} more`;more.onclick=e=>{e.stopPropagation();openDayView(ds);};cell.appendChild(more);}
+    cell.onclick=()=>openDayView(ds);grid.appendChild(cell);
   }
 }
-function changeMonth(d) { curMonth+=d; if(curMonth>11){curMonth=0;curYear++;}if(curMonth<0){curMonth=11;curYear--;} renderCal(); }
-function goToday() { const t=new Date(); curMonth=t.getMonth(); curYear=t.getFullYear(); renderCal(); }
+function changeMonth(d){curMonth+=d;if(curMonth>11){curMonth=0;curYear++;}if(curMonth<0){curMonth=11;curYear--;}renderCal();}
+function goToday(){const t=new Date();curMonth=t.getMonth();curYear=t.getFullYear();renderCal();}
 
-// ── Detail modal ──
-function openDetail(id) {
-  detailId = id;
-  const ev = events.find(e => e.id === id);
-  const c = CATS[ev.cat] || CATS['Personal'];
-  const badge = document.getElementById('detail-badge');
-  badge.textContent = ev.cat; badge.style.background=c.bg; badge.style.color=c.text;
-  document.getElementById('detail-title').textContent = ev.title;
-  let timeStr = ev.allDay && ev.end_date && ev.end_date!==ev.date ? `${fmt(ev.date)} – ${fmt(ev.end_date)}` : ev.allDay ? fmt(ev.date)+' · All day' : `${fmt(ev.date)} · ${fmtTime(ev.start)}${ev.end?' – '+fmtTime(ev.end):''}`;
-  document.getElementById('detail-time').innerHTML = `<span class="detail-icon">🗓</span><span>${timeStr}</span>`;
-  const locEl = document.getElementById('detail-loc');
-  if (ev.loc) { locEl.innerHTML=`<span class="detail-icon">📍</span><span>${ev.loc}</span>`; locEl.style.display='flex'; } else locEl.style.display='none';
-  const notesEl = document.getElementById('detail-notes');
-  if (ev.notes) { notesEl.innerHTML=`<span class="detail-icon">📝</span><span>${ev.notes}</span>`; notesEl.style.display='flex'; } else notesEl.style.display='none';
+// Detail
+function openDetail(id){
+  detailId=id;const ev=events.find(e=>e.id===id),c=CATS[ev.cat]||CATS['Personal'];
+  const badge=document.getElementById('detail-badge');badge.textContent=ev.cat;badge.style.background=c.bg;badge.style.color=c.text;
+  document.getElementById('detail-title').textContent=ev.title;
+  let ts=ev.allDay&&ev.end_date&&ev.end_date!==ev.date?`${fmt(ev.date)} – ${fmt(ev.end_date)}`:ev.allDay?fmt(ev.date)+' · All day':`${fmt(ev.date)} · ${fmtTime(ev.start)}${ev.end?' – '+fmtTime(ev.end):''}`;
+  document.getElementById('detail-time').innerHTML=`<span class="detail-icon">🗓</span><span>${ts}</span>`;
+  const locEl=document.getElementById('detail-loc');if(ev.loc){locEl.innerHTML=`<span class="detail-icon">📍</span><span>${ev.loc}</span>`;locEl.style.display='flex';}else locEl.style.display='none';
+  const notesEl=document.getElementById('detail-notes');if(ev.notes){notesEl.innerHTML=`<span class="detail-icon">📝</span><span>${ev.notes}</span>`;notesEl.style.display='flex';}else notesEl.style.display='none';
   document.getElementById('detail-overlay').classList.add('open');
 }
-function editFromDetail() { closeOverlay('detail-overlay'); openEdit(detailId); }
-function deleteFromDetail() {
-  if (!confirm('Delete this event?')) return;
-  events = events.filter(e => e.id !== detailId);
-  save(); renderCal(); closeOverlay('detail-overlay');
-  if (dayViewDate) renderDayView();
-  showToast('Event deleted');
-}
+function editFromDetail(){closeOverlay('detail-overlay');openEdit(detailId);}
+function deleteFromDetail(){if(!confirm('Delete this event?'))return;events=events.filter(e=>e.id!==detailId);save();renderCal();closeOverlay('detail-overlay');if(dayViewDate)renderDayView();showToast('Event deleted');}
 
-// ── Form modal ──
-function toggleTimes() { document.getElementById('time-fields').style.display = document.getElementById('f-allday').value==='yes'?'none':'grid'; }
-
-function openAdd(prefillDate, prefillStart, prefillEnd) {
-  editingId = null;
-  document.getElementById('form-title').textContent = 'Add Event';
-  document.getElementById('btn-delete').style.display = 'none';
-  document.getElementById('f-name').value = '';
-  populateCatSelect('f-cat','Personal');
-  document.getElementById('f-date').value = prefillDate || today();
-  document.getElementById('f-end-date').value = '';
-  document.getElementById('f-allday').value = 'no';
-  document.getElementById('f-start').value = prefillStart || '';
-  document.getElementById('f-end').value = prefillEnd || '';
-  document.getElementById('f-loc').value = '';
-  document.getElementById('f-notes').value = '';
-  toggleTimes();
-  document.getElementById('form-overlay').classList.add('open');
-  setTimeout(() => document.getElementById('f-name').focus(), 80);
+// Form
+function toggleTimes(){document.getElementById('time-fields').style.display=document.getElementById('f-allday').value==='yes'?'none':'grid';}
+function openAdd(prefillDate,prefillStart,prefillEnd){
+  editingId=null;document.getElementById('form-title').textContent='Add Event';document.getElementById('btn-delete').style.display='none';
+  document.getElementById('f-name').value='';populateCatSelect('f-cat','Personal');
+  document.getElementById('f-date').value=prefillDate||today();document.getElementById('f-end-date').value='';
+  document.getElementById('f-allday').value='no';document.getElementById('f-start').value=prefillStart||'';document.getElementById('f-end').value=prefillEnd||'';
+  document.getElementById('f-loc').value='';document.getElementById('f-notes').value='';
+  toggleTimes();document.getElementById('form-overlay').classList.add('open');setTimeout(()=>document.getElementById('f-name').focus(),80);
 }
-
-function openEdit(id) {
-  editingId = id;
-  const ev = events.find(e => e.id === id);
-  document.getElementById('form-title').textContent = 'Edit Event';
-  document.getElementById('btn-delete').style.display = 'inline-block';
-  document.getElementById('f-name').value = ev.title;
-  populateCatSelect('f-cat', ev.cat);
-  document.getElementById('f-date').value = ev.date;
-  document.getElementById('f-end-date').value = ev.end_date || '';
-  document.getElementById('f-allday').value = ev.allDay ? 'yes' : 'no';
-  document.getElementById('f-start').value = ev.start || '';
-  document.getElementById('f-end').value = ev.end || '';
-  document.getElementById('f-loc').value = ev.loc || '';
-  document.getElementById('f-notes').value = ev.notes || '';
-  toggleTimes();
-  document.getElementById('form-overlay').classList.add('open');
+function openEdit(id){
+  editingId=id;const ev=events.find(e=>e.id===id);
+  document.getElementById('form-title').textContent='Edit Event';document.getElementById('btn-delete').style.display='inline-block';
+  document.getElementById('f-name').value=ev.title;populateCatSelect('f-cat',ev.cat);
+  document.getElementById('f-date').value=ev.date;document.getElementById('f-end-date').value=ev.end_date||'';
+  document.getElementById('f-allday').value=ev.allDay?'yes':'no';document.getElementById('f-start').value=ev.start||'';document.getElementById('f-end').value=ev.end||'';
+  document.getElementById('f-loc').value=ev.loc||'';document.getElementById('f-notes').value=ev.notes||'';
+  toggleTimes();document.getElementById('form-overlay').classList.add('open');
 }
-
-function saveEvent() {
-  const title = document.getElementById('f-name').value.trim();
-  if (!title) { alert('Please enter an event name.'); return; }
-  const date = document.getElementById('f-date').value;
-  if (!date) { alert('Please pick a date.'); return; }
-  const allDay = document.getElementById('f-allday').value === 'yes';
-  const ev = { id: editingId || nextId++, title, cat: document.getElementById('f-cat').value, date,
-    end_date: document.getElementById('f-end-date').value || undefined,
-    allDay: allDay || undefined,
-    start: allDay ? undefined : (document.getElementById('f-start').value || undefined),
-    end: allDay ? undefined : (document.getElementById('f-end').value || undefined),
-    loc: document.getElementById('f-loc').value.trim() || undefined,
-    notes: document.getElementById('f-notes').value.trim() || undefined,
-  };
-  Object.keys(ev).forEach(k => ev[k]===undefined && delete ev[k]);
-  if (editingId) { const idx=events.findIndex(e=>e.id===editingId); events[idx]=ev; showToast('Event updated'); }
-  else { events.push(ev); showToast('Event added'); }
-  save(); renderCal(); closeOverlay('form-overlay');
-  if (dayViewDate) renderDayView();
+function saveEvent(){
+  const title=document.getElementById('f-name').value.trim();if(!title){alert('Please enter an event name.');return;}
+  const date=document.getElementById('f-date').value;if(!date){alert('Please pick a date.');return;}
+  const allDay=document.getElementById('f-allday').value==='yes';
+  const ev={id:editingId||nextId++,title,cat:document.getElementById('f-cat').value,date,
+    end_date:document.getElementById('f-end-date').value||undefined,allDay:allDay||undefined,
+    start:allDay?undefined:(document.getElementById('f-start').value||undefined),
+    end:allDay?undefined:(document.getElementById('f-end').value||undefined),
+    loc:document.getElementById('f-loc').value.trim()||undefined,notes:document.getElementById('f-notes').value.trim()||undefined};
+  Object.keys(ev).forEach(k=>ev[k]===undefined&&delete ev[k]);
+  if(editingId){const idx=events.findIndex(e=>e.id===editingId);events[idx]=ev;showToast('Event updated');}else{events.push(ev);showToast('Event added');}
+  save();renderCal();closeOverlay('form-overlay');if(dayViewDate)renderDayView();
 }
+function deleteEvent(){if(!confirm('Delete this event?'))return;events=events.filter(e=>e.id!==editingId);save();renderCal();closeOverlay('form-overlay');if(dayViewDate)renderDayView();showToast('Event deleted');}
 
-function deleteEvent() {
-  if (!confirm('Delete this event?')) return;
-  events = events.filter(e => e.id !== editingId);
-  save(); renderCal(); closeOverlay('form-overlay');
-  if (dayViewDate) renderDayView();
-  showToast('Event deleted');
-}
-
-// ── Import / Export ──
-function openImport() { document.getElementById('import-json').value=''; document.getElementById('import-overlay').classList.add('open'); }
-function doExport() {
-  const json=JSON.stringify(events,null,2); const blob=new Blob([json],{type:'application/json'}); const url=URL.createObjectURL(blob);
-  const a=document.createElement('a'); a.href=url; a.download=`my_calendar_${new Date().toISOString().slice(0,10)}.json`; a.click(); URL.revokeObjectURL(url);
-  showToast('Events exported!');
-}
-function doImport() {
-  const raw=document.getElementById('import-json').value.trim(); let parsed;
-  try { parsed=JSON.parse(raw); } catch { alert('Invalid JSON.'); return; }
-  if (!Array.isArray(parsed)) { alert('Expected a JSON array.'); return; }
+// Import/Export
+function openImport(){document.getElementById('import-json').value='';document.getElementById('import-overlay').classList.add('open');}
+function doExport(){const json=JSON.stringify(events,null,2),blob=new Blob([json],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`my_calendar_${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(url);showToast('Events exported!');}
+function doImport(){
+  const raw=document.getElementById('import-json').value.trim();let parsed;
+  try{parsed=JSON.parse(raw);}catch{alert('Invalid JSON.');return;}
+  if(!Array.isArray(parsed)){alert('Expected a JSON array.');return;}
   let added=0,updated=0;
-  parsed.forEach(ev => { const idx=events.findIndex(e=>e.id===ev.id); if(idx>=0){events[idx]=ev;updated++;}else{if(!ev.id)ev.id=nextId++;events.push(ev);added++;} });
-  save(); renderCal(); closeOverlay('import-overlay');
-  showToast(`Imported: ${added} added, ${updated} updated`);
+  parsed.forEach(ev=>{const idx=events.findIndex(e=>e.id===ev.id);if(idx>=0){events[idx]=ev;updated++;}else{if(!ev.id)ev.id=nextId++;events.push(ev);added++;}});
+  save();renderCal();closeOverlay('import-overlay');showToast(`Imported: ${added} added, ${updated} updated`);
 }
 
-// ── Manage Categories ──
-function openManageCats() { renderCatList(); document.getElementById('new-cat-name').value=''; document.getElementById('new-cat-color').value='#4a90d9'; updateColorPreview(); document.getElementById('cats-overlay').classList.add('open'); }
-function renderCatList() {
-  const list=document.getElementById('cat-list'); list.innerHTML='';
-  Object.entries(CATS).forEach(([name,c]) => {
-    const row=document.createElement('div'); row.className='cat-row';
-    const dot=document.createElement('div'); dot.className='cat-dot'; dot.style.background=c.dot;
-    const swatch=document.createElement('div'); swatch.className='cat-row-swatch'; swatch.style.background=c.bg; swatch.style.border=`1px solid ${c.dot}55`;
-    const nameEl=document.createElement('div'); nameEl.className='cat-row-name'; nameEl.textContent=name;
-    const delBtn=document.createElement('button'); delBtn.className='cat-del-btn'; delBtn.innerHTML='✕'; delBtn.disabled=BUILTIN_CATS.has(name); delBtn.onclick=()=>deleteCategory(name);
-    row.append(dot,swatch,nameEl,delBtn); list.appendChild(row);
+// Categories
+function openManageCats(){renderCatList();document.getElementById('new-cat-name').value='';document.getElementById('new-cat-color').value='#4a90d9';updateColorPreview();document.getElementById('cats-overlay').classList.add('open');}
+function renderCatList(){
+  const list=document.getElementById('cat-list');list.innerHTML='';
+  Object.entries(CATS).forEach(([name,c])=>{
+    const row=document.createElement('div');row.className='cat-row';
+    const dot=document.createElement('div');dot.className='cat-dot';dot.style.background=c.dot;
+    const sw=document.createElement('div');sw.className='cat-row-swatch';sw.style.background=c.bg;sw.style.border=`1px solid ${c.dot}55`;
+    const nm=document.createElement('div');nm.className='cat-row-name';nm.textContent=name;
+    const del=document.createElement('button');del.className='cat-del-btn';del.innerHTML='✕';del.disabled=BUILTIN_CATS.has(name);del.onclick=()=>deleteCategory(name);
+    row.append(dot,sw,nm,del);list.appendChild(row);
   });
 }
-function updateColorPreview() {
-  const hex=document.getElementById('new-cat-color').value; const preview=document.getElementById('new-cat-preview');
-  preview.style.background=lightenHex(hex,0.82); preview.textContent='';
-  const s=document.createElement('div'); s.style.cssText=`width:12px;height:12px;border-radius:50%;background:${hex};`; preview.appendChild(s);
+function updateColorPreview(){const h=document.getElementById('new-cat-color').value,p=document.getElementById('new-cat-preview');p.style.background=lightenHex(h,0.82);p.textContent='';const s=document.createElement('div');s.style.cssText=`width:12px;height:12px;border-radius:50%;background:${h};`;p.appendChild(s);}
+function addCategory(){
+  const name=document.getElementById('new-cat-name').value.trim();if(!name){showToast('Please enter a name');return;}if(CATS[name]){showToast('Already exists');return;}
+  const hex=document.getElementById('new-cat-color').value;CATS[name]=colorFromHex(hex);activeFilters.add(name);
+  saveCustomCats();renderFilters();renderCatList();renderCal();document.getElementById('new-cat-name').value='';showToast(`"${name}" added`);
 }
-function addCategory() {
-  const name=document.getElementById('new-cat-name').value.trim();
-  if(!name){showToast('Please enter a name');return;} if(CATS[name]){showToast('Already exists');return;}
-  const hex=document.getElementById('new-cat-color').value; CATS[name]=colorFromHex(hex); activeFilters.add(name);
-  saveCustomCats(); renderFilters(); renderCatList(); renderCal(); document.getElementById('new-cat-name').value=''; showToast(`"${name}" added`);
-}
-function deleteCategory(name) {
+function deleteCategory(name){
   if(BUILTIN_CATS.has(name))return;
   const inUse=events.some(e=>e.cat===name);
   if(inUse){if(!confirm(`"${name}" is used by some events. Delete anyway?`))return;}else{if(!confirm(`Delete "${name}"?`))return;}
-  delete CATS[name]; activeFilters.delete(name); saveCustomCats(); renderFilters(); renderCatList(); renderCal(); showToast(`"${name}" deleted`);
+  delete CATS[name];activeFilters.delete(name);saveCustomCats();renderFilters();renderCatList();renderCal();showToast(`"${name}" deleted`);
 }
 
-// ════════════════════════════════════════════
-// ── DAY VIEW ──
-// ════════════════════════════════════════════
-function openDayView(ds) { dayViewDate = ds; renderDayView(); document.getElementById('dayview-overlay').classList.add('open'); }
-function shiftDay(dir) {
-  const [y,m,d]=dayViewDate.split('-').map(Number); const dt=new Date(y,m-1,d); dt.setDate(dt.getDate()+dir);
-  dayViewDate=dateStr(dt.getFullYear(),dt.getMonth(),dt.getDate()); renderDayView();
-}
-function dayviewOverlayClick(e) { if(e.target===document.getElementById('dayview-overlay'))closeOverlay('dayview-overlay'); }
+// ══════════════════════════════
+// DAY VIEW
+// ══════════════════════════════
+function openDayView(ds){dayViewDate=ds;renderDayView();document.getElementById('dayview-overlay').classList.add('open');}
+function shiftDay(dir){const[y,m,d]=dayViewDate.split('-').map(Number),dt=new Date(y,m-1,d);dt.setDate(dt.getDate()+dir);dayViewDate=dateStr(dt.getFullYear(),dt.getMonth(),dt.getDate());renderDayView();}
+function dayviewOverlayClick(e){if(e.target===document.getElementById('dayview-overlay'))closeOverlay('dayview-overlay');}
 
-function renderDayView() {
-  const ds = dayViewDate;
-  const [y,m,d] = ds.split('-').map(Number);
-  const dt = new Date(y, m-1, d);
-  document.getElementById('dayview-title').textContent = `${DAYS_LONG[dt.getDay()]}, ${MONTHS[m-1]} ${d}, ${y}`;
+function renderDayView(){
+  const ds=dayViewDate,[y,m,d]=ds.split('-').map(Number),dt=new Date(y,m-1,d);
+  document.getElementById('dayview-title').textContent=`${DAYS_LONG[dt.getDay()]}, ${MONTHS[m-1]} ${d}, ${y}`;
 
-  const allEvs = events.filter(e => activeFilters.has(e.cat) && ds >= e.date && ds <= (e.end_date || e.date));
-  const allDayEvs = allEvs.filter(e => e.allDay || !e.start);
-  const timedEvs  = allEvs.filter(e => !e.allDay && e.start);
+  const allEvs=events.filter(e=>activeFilters.has(e.cat)&&ds>=e.date&&ds<=(e.end_date||e.date));
+  const allDayEvs=allEvs.filter(e=>e.allDay||!e.start);
+  const timedEvs=allEvs.filter(e=>!e.allDay&&e.start);
 
   // All-day strip
-  const strip = document.getElementById('dayview-allday');
-  strip.innerHTML = '';
-  if (allDayEvs.length === 0) strip.innerHTML = '<span style="font-size:11px;color:var(--text3);">No all-day events</span>';
-  allDayEvs.forEach(ev => {
-    const c = CATS[ev.cat] || CATS['Personal'];
-    const pill = document.createElement('div');
-    pill.className = 'allday-pill'; pill.style.background=c.bg; pill.style.color=c.text; pill.textContent=ev.title;
-    pill.onclick = () => openDetail(ev.id);
-    strip.appendChild(pill);
+  const strip=document.getElementById('dayview-allday');strip.innerHTML='';
+  if(allDayEvs.length===0)strip.innerHTML='<span style="font-size:11px;color:var(--text3);">No all-day events</span>';
+  allDayEvs.forEach(ev=>{
+    const c=CATS[ev.cat]||CATS['Personal'],pill=document.createElement('div');
+    pill.className='allday-pill';pill.style.background=c.bg;pill.style.color=c.text;pill.textContent=ev.title;
+    pill.onclick=()=>openDetail(ev.id);strip.appendChild(pill);
   });
 
   // Build timeline
-  const body = document.getElementById('dayview-body');
-  body.innerHTML = '';
+  const body=document.getElementById('dayview-body');body.innerHTML='';
+  const labelsCol=document.createElement('div');labelsCol.className='tl-labels';labelsCol.style.cssText=`height:${TOTAL_PX}px;position:relative;flex-shrink:0;`;
+  const gridCol=document.createElement('div');gridCol.className='tl-grid';gridCol.style.cssText=`height:${TOTAL_PX}px;position:relative;flex:1;border-left:1px solid var(--border);`;
 
-  const labelsCol = document.createElement('div');
-  labelsCol.className = 'tl-labels';
-  labelsCol.style.height = TOTAL_PX + 'px';
-  labelsCol.style.position = 'relative';
-
-  const gridCol = document.createElement('div');
-  gridCol.className = 'tl-grid';
-  gridCol.style.height = TOTAL_PX + 'px';
-  gridCol.style.position = 'relative';
-
-  // Hour and half-hour lines + labels
-  for (let h = 0; h <= 24; h++) {
-    const top = h * HOUR_PX;
-    // Hour line
-    const line = document.createElement('div');
-    line.className = 'tl-line hour'; line.style.top = top + 'px';
-    gridCol.appendChild(line);
-    // Half-hour line
-    if (h < 24) {
-      const half = document.createElement('div');
-      half.className = 'tl-line half'; half.style.top = (top + HOUR_PX/2) + 'px';
-      gridCol.appendChild(half);
-    }
-    // Label
-    if (h < 24) {
-      const lbl = document.createElement('div');
-      lbl.className = 'tl-label'; lbl.style.top = top + 'px';
-      lbl.textContent = h === 0 ? '12a' : h < 12 ? h+'a' : h === 12 ? '12p' : (h-12)+'p';
+  // Hour lines, half-hour lines, labels
+  for(let h=0;h<=24;h++){
+    const top=h*HOUR_PX;
+    const line=document.createElement('div');line.className='tl-line hour';line.style.top=top+'px';gridCol.appendChild(line);
+    if(h<24){
+      const half=document.createElement('div');half.className='tl-line half';half.style.top=(top+HOUR_PX/2)+'px';gridCol.appendChild(half);
+      const lbl=document.createElement('div');lbl.className='tl-label';lbl.style.top=top+'px';
+      lbl.textContent=h===0?'12a':h<12?h+'a':h===12?'12p':(h-12)+'p';
       labelsCol.appendChild(lbl);
     }
   }
 
   // Current time line
-  const now = new Date();
-  if (ds === dateStr(now.getFullYear(), now.getMonth(), now.getDate())) {
-    const nowLine = document.createElement('div');
-    nowLine.className = 'tl-now';
-    nowLine.style.top = (now.getHours()*60 + now.getMinutes()) / 60 * HOUR_PX + 'px';
-    gridCol.appendChild(nowLine);
+  const now=new Date();
+  if(ds===dateStr(now.getFullYear(),now.getMonth(),now.getDate())){
+    const nl=document.createElement('div');nl.className='tl-now';
+    nl.style.top=((now.getHours()*60+now.getMinutes())/60*HOUR_PX)+'px';gridCol.appendChild(nl);
   }
 
-  // Layout timed events with overlap handling
-  const sorted = [...timedEvs].sort((a,b) => timeToMins(a.start) - timeToMins(b.start));
-  // Cluster-based column layout
-  const placed = sorted.map(ev => {
-    const s = timeToMins(ev.start);
-    const e2 = ev.end ? timeToMins(ev.end) : s + 60;
-    return { ev, s, e: e2, col: 0, totalCols: 1 };
-  });
-  // Assign columns
-  for (let i = 0; i < placed.length; i++) {
-    const usedCols = placed.slice(0,i).filter(p => p.e > placed[i].s && p.s < placed[i].e).map(p => p.col);
-    let col = 0; while (usedCols.includes(col)) col++;
-    placed[i].col = col;
+  // Layout events with overlap columns
+  const sorted=[...timedEvs].sort((a,b)=>timeToMins(a.start)-timeToMins(b.start));
+  const placed=sorted.map(ev=>({ev,s:timeToMins(ev.start),e:ev.end?timeToMins(ev.end):timeToMins(ev.start)+60,col:0,totalCols:1}));
+  for(let i=0;i<placed.length;i++){
+    const used=placed.slice(0,i).filter(p=>p.e>placed[i].s&&p.s<placed[i].e).map(p=>p.col);
+    let col=0;while(used.includes(col))col++;placed[i].col=col;
   }
-  // Find totalCols for each
-  for (let i = 0; i < placed.length; i++) {
-    const overlapping = placed.filter(p => p.e > placed[i].s && p.s < placed[i].e);
-    placed[i].totalCols = Math.max(...overlapping.map(p => p.col)) + 1;
+  for(let i=0;i<placed.length;i++){
+    const ov=placed.filter(p=>p.e>placed[i].s&&p.s<placed[i].e);
+    placed[i].totalCols=Math.max(...ov.map(p=>p.col))+1;
   }
-
-  placed.forEach(({ ev, s, e: eMin, col, totalCols }) => {
-    const c = CATS[ev.cat] || CATS['Personal'];
-    const topPx  = s / 60 * HOUR_PX;
-    const heightPx = Math.max(24, (eMin - s) / 60 * HOUR_PX - 2);
-    const colW = 94 / totalCols;
-
-    const el = document.createElement('div');
-    el.className = 'tl-event';
-    el.style.cssText = `background:${c.bg};color:${c.text};top:${topPx}px;height:${heightPx}px;left:${3 + col*colW}%;width:${colW - 1}%;`;
-    el.dataset.evId = ev.id;
-
-    el.innerHTML = `
-      <div class="tl-resize-top" data-role="resize-top"></div>
-      <div class="tl-title">${ev.title}</div>
-      <div class="tl-time">${fmtTime(ev.start)}${ev.end?' – '+fmtTime(ev.end):''}</div>
-      <div class="tl-resize-handle" data-role="resize-bottom"></div>
-    `;
-
-    // Click to open detail (only if not dragging)
-    el.addEventListener('click', e => {
-      if (el.classList.contains('dragging') || wasDragging) return;
-      e.stopPropagation();
-      openDetail(ev.id);
-    });
-
-    attachDragHandlers(el, ev.id, gridCol);
+  placed.forEach(({ev,s,e:eMin,col,totalCols})=>{
+    const c=CATS[ev.cat]||CATS['Personal'];
+    const topPx=s/60*HOUR_PX,heightPx=Math.max(24,(eMin-s)/60*HOUR_PX-2);
+    const colW=94/totalCols;
+    const el=document.createElement('div');el.className='tl-event';
+    el.style.cssText=`background:${c.bg};color:${c.text};top:${topPx}px;height:${heightPx}px;left:${3+col*colW}%;width:${colW-1}%;`;
+    el.dataset.evId=ev.id;
+    el.innerHTML=`<div class="tl-resize-top" data-role="resize-top"></div><div class="tl-title">${ev.title}</div><div class="tl-time">${fmtTime(ev.start)}${ev.end?' – '+fmtTime(ev.end):''}</div><div class="tl-resize-handle" data-role="resize-bottom"></div>`;
+    el.addEventListener('click',e=>{if(el.classList.contains('dragging')||wasDragging)return;e.stopPropagation();openDetail(ev.id);});
+    attachDragHandlers(el,ev.id,gridCol,body);
     gridCol.appendChild(el);
   });
 
-  // Double-click on grid to add event
-  let lastClickTime = 0;
-  gridCol.addEventListener('click', e => {
-    if (e.target !== gridCol && !e.target.classList.contains('tl-line')) return;
-    const now2 = Date.now();
-    if (now2 - lastClickTime < 350) {
-      // double-click
-      const rect = gridCol.getBoundingClientRect();
-      const y2 = e.clientY - rect.top + body.scrollTop;
-      const clickedMins = snapMins(y2 / HOUR_PX * 60, 15);
-      const startMins = Math.max(0, Math.min(clickedMins, 23*60));
-      const endMins   = Math.min(startMins + 60, 24*60);
-      openAdd(dayViewDate, minsToTime(startMins), minsToTime(endMins));
-      lastClickTime = 0;
-    } else {
-      lastClickTime = now2;
-    }
+  // ── Double-click on grid to add event ──
+  // Use dblclick event — most reliable cross-platform, no timing math needed.
+  // We measure Y relative to gridCol itself (not body) so scroll position is
+  // already handled by getBoundingClientRect.
+  gridCol.addEventListener('dblclick',e=>{
+    // Ignore clicks that land on an existing event
+    if(e.target!==gridCol&&!e.target.classList.contains('tl-line'))return;
+    const rect=gridCol.getBoundingClientRect();
+    // e.clientY is viewport-relative; rect.top is viewport-relative top of gridCol.
+    // body.scrollTop accounts for any scroll within the day-view-body container.
+    const yInGrid=e.clientY-rect.top+body.scrollTop;
+    const clickedMins=snapMins(yInGrid/HOUR_PX*60,15);
+    const startMins=Math.max(0,Math.min(clickedMins,23*60));
+    const endMins=Math.min(startMins+60,24*60);
+    openAdd(dayViewDate,minsToTime(startMins),minsToTime(endMins));
   });
 
   body.appendChild(labelsCol);
   body.appendChild(gridCol);
 
   // Scroll to first event or 7am
-  const firstMin = timedEvs.length ? Math.min(...timedEvs.map(e => timeToMins(e.start))) : 7*60;
-  setTimeout(() => { body.scrollTop = Math.max(0, (firstMin/60 - 0.5) * HOUR_PX); }, 50);
+  const firstMin=timedEvs.length?Math.min(...timedEvs.map(e=>timeToMins(e.start))):7*60;
+  setTimeout(()=>{body.scrollTop=Math.max(0,(firstMin/60-0.5)*HOUR_PX);},50);
 }
 
-// ── Drag: move + resize ──
-let wasDragging = false;
-
-function attachDragHandlers(el, evId, gridCol) {
-  const body = document.getElementById('dayview-body');
-
-  function getEvIndex() { return events.findIndex(e => e.id === evId); }
-
-  function startDrag(e, mode) {
-    // mode: 'move' | 'resize-bottom' | 'resize-top'
-    e.preventDefault();
-    e.stopPropagation();
-    wasDragging = false;
-
-    const isTouch = e.type === 'touchstart';
-    const clientY0 = isTouch ? e.touches[0].clientY : e.clientY;
-    const scrollTop0 = body.scrollTop;
-    const rect0 = gridCol.getBoundingClientRect();
-
-    const evIdx = getEvIndex();
-    if (evIdx < 0) return;
-    const ev = events[evIdx];
-    const startMins0 = timeToMins(ev.start);
-    const endMins0   = ev.end ? timeToMins(ev.end) : startMins0 + 60;
-    const duration   = endMins0 - startMins0;
-
+// Drag: move + resize top/bottom
+function attachDragHandlers(el,evId,gridCol,body){
+  function getEvIdx(){return events.findIndex(e=>e.id===evId);}
+  function startDrag(e,mode){
+    e.preventDefault();e.stopPropagation();wasDragging=false;
+    const isTouch=e.type==='touchstart';
+    const clientY0=isTouch?e.touches[0].clientY:e.clientY;
+    const scrollTop0=body.scrollTop;
+    const idx0=getEvIdx();if(idx0<0)return;
+    const ev=events[idx0];
+    const s0=timeToMins(ev.start),e0=ev.end?timeToMins(ev.end):s0+60,dur=e0-s0;
     el.classList.add('dragging');
-    el.style.transition = 'none';
-
-    function onMove(e2) {
-      const clientY2 = e2.type === 'touchmove' ? e2.touches[0].clientY : e2.clientY;
-      const scrollDiff = body.scrollTop - scrollTop0;
-      const dy = clientY2 - clientY0 + scrollDiff;
-      if (Math.abs(dy) > 3) wasDragging = true;
-      const deltaMins = snapMins(dy / HOUR_PX * 60, 15);
-
-      const idx2 = getEvIndex();
-      if (idx2 < 0) return;
-
-      if (mode === 'move') {
-        let newStart = Math.max(0, Math.min(startMins0 + deltaMins, 24*60 - duration));
-        let newEnd   = newStart + duration;
-        events[idx2] = { ...events[idx2], start: minsToTime(newStart), end: minsToTime(newEnd) };
-      } else if (mode === 'resize-bottom') {
-        let newEnd = Math.max(startMins0 + 15, Math.min(endMins0 + deltaMins, 24*60));
-        events[idx2] = { ...events[idx2], end: minsToTime(newEnd) };
-      } else if (mode === 'resize-top') {
-        let newStart = Math.max(0, Math.min(startMins0 + deltaMins, endMins0 - 15));
-        events[idx2] = { ...events[idx2], start: minsToTime(newStart) };
+    function onMove(e2){
+      const cy=e2.type==='touchmove'?e2.touches[0].clientY:e2.clientY;
+      const dy=cy-clientY0+(body.scrollTop-scrollTop0);
+      if(Math.abs(dy)>3)wasDragging=true;
+      const delta=snapMins(dy/HOUR_PX*60,15);
+      const idx=getEvIdx();if(idx<0)return;
+      if(mode==='move'){
+        const ns=Math.max(0,Math.min(s0+delta,24*60-dur));
+        events[idx]={...events[idx],start:minsToTime(ns),end:minsToTime(ns+dur)};
+      }else if(mode==='resize-bottom'){
+        const ne=Math.max(s0+15,Math.min(e0+delta,24*60));
+        events[idx]={...events[idx],end:minsToTime(ne)};
+      }else if(mode==='resize-top'){
+        const ns=Math.max(0,Math.min(s0+delta,e0-15));
+        events[idx]={...events[idx],start:minsToTime(ns)};
       }
-
-      // Live visual update
-      const ev2 = events[idx2];
-      const s2 = timeToMins(ev2.start);
-      const e2min = ev2.end ? timeToMins(ev2.end) : s2+60;
-      el.style.top    = (s2/60*HOUR_PX) + 'px';
-      el.style.height = Math.max(24, (e2min-s2)/60*HOUR_PX - 2) + 'px';
-      el.querySelector('.tl-time').textContent = fmtTime(ev2.start)+(ev2.end?' – '+fmtTime(ev2.end):'');
+      const ev2=events[idx],s2=timeToMins(ev2.start),e2m=ev2.end?timeToMins(ev2.end):s2+60;
+      el.style.top=(s2/60*HOUR_PX)+'px';el.style.height=Math.max(24,(e2m-s2)/60*HOUR_PX-2)+'px';
+      el.querySelector('.tl-time').textContent=fmtTime(ev2.start)+(ev2.end?' – '+fmtTime(ev2.end):'');
     }
-
-    function onUp() {
+    function onUp(){
       el.classList.remove('dragging');
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
-      document.removeEventListener('touchmove', onMove);
-      document.removeEventListener('touchend', onUp);
-      if (wasDragging) { save(); renderCal(); }
-      setTimeout(() => { wasDragging = false; }, 50);
+      document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);
+      document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onUp);
+      if(wasDragging){save();renderCal();}
+      setTimeout(()=>{wasDragging=false;},50);
     }
-
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
-    document.addEventListener('touchmove', onMove, { passive: false });
-    document.addEventListener('touchend', onUp);
+    document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);
+    document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onUp);
   }
-
-  // Move: drag on main body (not handles)
-  el.addEventListener('mousedown', e => {
-    if (e.target.dataset.role) return; // handled by handles
-    startDrag(e, 'move');
-  });
-  el.addEventListener('touchstart', e => {
-    if (e.target.dataset.role) return;
-    startDrag(e, 'move');
-  }, { passive: false });
-
-  // Resize bottom
-  const bottomHandle = el.querySelector('[data-role="resize-bottom"]');
-  bottomHandle.addEventListener('mousedown', e => { e.stopPropagation(); startDrag(e, 'resize-bottom'); });
-  bottomHandle.addEventListener('touchstart', e => { e.stopPropagation(); startDrag(e, 'resize-bottom'); }, { passive: false });
-
-  // Resize top
-  const topHandle = el.querySelector('[data-role="resize-top"]');
-  topHandle.addEventListener('mousedown', e => { e.stopPropagation(); startDrag(e, 'resize-top'); });
-  topHandle.addEventListener('touchstart', e => { e.stopPropagation(); startDrag(e, 'resize-top'); }, { passive: false });
+  el.addEventListener('mousedown',e=>{if(e.target.dataset.role)return;startDrag(e,'move');});
+  el.addEventListener('touchstart',e=>{if(e.target.dataset.role)return;startDrag(e,'move');},{passive:false});
+  el.querySelector('[data-role="resize-bottom"]').addEventListener('mousedown',e=>{e.stopPropagation();startDrag(e,'resize-bottom');});
+  el.querySelector('[data-role="resize-bottom"]').addEventListener('touchstart',e=>{e.stopPropagation();startDrag(e,'resize-bottom');},{passive:false});
+  el.querySelector('[data-role="resize-top"]').addEventListener('mousedown',e=>{e.stopPropagation();startDrag(e,'resize-top');});
+  el.querySelector('[data-role="resize-top"]').addEventListener('touchstart',e=>{e.stopPropagation();startDrag(e,'resize-top');},{passive:false});
 }
 
-// ── Utils ──
-function closeOverlay(id) { document.getElementById(id).classList.remove('open'); }
-function overlayClick(e, id) { if(e.target===document.getElementById(id))closeOverlay(id); }
+// Utils
+function closeOverlay(id){document.getElementById(id).classList.remove('open');}
+function overlayClick(e,id){if(e.target===document.getElementById(id))closeOverlay(id);}
 let toastTimer;
-function showToast(msg) {
-  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
-  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
-}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2500);}
 
-// ── Init ──
+// Init
 loadCustomCats();
-const _t = new Date(); curMonth = _t.getMonth(); curYear = _t.getFullYear();
+const _t=new Date();curMonth=_t.getMonth();curYear=_t.getFullYear();
 renderFilters();
-loadEvents().then(() => renderCal());
+loadEvents().then(()=>renderCal());
 </script>
 </body>
 </html>
