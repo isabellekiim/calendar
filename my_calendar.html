@@ -648,7 +648,7 @@ function renderDayView(){
     const headerHeight = document.querySelector(".day-view-header")?.offsetHeight ?? 0;
     const titleHeight = document.querySelector(".day-view-title")?.offsetHeight ?? 0;
     const navHeight = document.querySelector(".day-view-nav")?.offsetHeight ?? 0;
-    const yInGrid=e.clientY-rect.top+body.scrollTop-(headerHeight+titieHeight+navHeight);
+    const yInGrid=e.clientY-rect.top+body.scrollTop-(headerHeight+titleHeight+navHeight);
     const clickedMins=snapMins(yInGrid/HOUR_PX*60,15);
     const startMins=Math.max(0,Math.min(clickedMins,23*60));
     const endMins=Math.min(startMins+60,24*60);
